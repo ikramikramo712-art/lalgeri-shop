@@ -1,0 +1,251 @@
+<div class="ticker" id="ticker-container">
+    <div class="ticker-content" id="ticker-content">
+        <span>جاري تحميل العروض... 🔥</span>
+    </div>
+</div>
+
+<script>
+db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
+    const content = document.getElementById('ticker-content');
+    content.innerHTML = "";
+    if (snapshot.empty) {
+        content.innerHTML = '<span>🔥 مرحبا في لانجري شوب - سرية تامة 🇩🇿</span>';
+        return;
+    }
+    snapshot.forEach(doc => {
+        const t = doc.data();
+        if (t.image) {
+            content.innerHTML += `<span><img src="${t.image}" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;"> ${t.message}</span>`;
+        } else {
+            content.innerHTML += `<span>${t.message}</span>`;
+        }
+    });
+});
+</script>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+<script>
+// Firebase Config بتاعك
+const firebaseConfig = {
+  apiKey: "AIzaSyBIUIVNwL6wip1eUlZfkMYMN0qoJ6QOLAU",
+  authDomain: "lalgeri-shop.firebaseapp.com",
+  projectId: "lalgeri-shop",
+  storageBucket: "lalgeri-shop.firebasestorage.app",
+  messagingSenderId: "181963289442",
+  appId: "1:181963289442:web:ae9f6da7c55422fec5723b"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
+<head>
+<title>لانجري نسائي مثير في الجزائر | لالجيري شوب 🇩🇿</title>
+<meta name="description" content="طقم لانجري دانتيل فاخر ✅ برا وبانتي ✅ ستيوكينغز ✅ كاميزول ✅ سرية تامة وتوصيل سريع لـ 58 ولاية ✅ عروض خاصة">
+<meta name="keywords" content="لانجري نسائي الجزائر, طقم برا وبانتي, لانجري دانتيل, ستيوكينغز, متجر لانجري نسائي اونلاين">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملابس داخلية نسائية - لالجيري شوب 🇩🇿</title>
+    <link rel="stylesheet" href="style.css">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5DT4LKCHTQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5DT4LKCHTQ');
+</script>
+</head>
+<body>
+
+<div class="ticker" id="ticker-container">
+    <div class="ticker-content" id="ticker-content">
+        <span>جاري تحميل العروض... 🔥</span>
+    </div>
+</div>
+
+<script>
+db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
+    const content = document.getElementById('ticker-content');
+    content.innerHTML = "";
+    if (snapshot.empty) {
+        content.innerHTML = '<span>🔥 مرحبا في لانجري شوب - سرية تامة 🇩🇿</span>';
+        return;
+    }
+    snapshot.forEach(doc => {
+        const t = doc.data();
+        if (t.image) {
+            content.innerHTML += `<span><img src="${t.image}" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;"> ${t.message}</span>`;
+        } else {
+            content.innerHTML += `<span>${t.message}</span>`;
+        }
+    });
+});
+</script>
+
+
+    <!-- الهيدر -->
+    <header>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
+            <div class="logo">لالجيري شوب 🇩🇿</div>
+        </div>
+        <div class="cart">🛒 السلة (<span id="cart-count">0</span>) - المجموع: <span id="cart-total">0</span> دج</div>
+    </header>
+
+    <!-- الناف -->
+    <nav>
+    <ul>
+        <li><a href="index.html"> 
+            <span class="icon">🏠</span>
+            الرئيسية
+        </a></li>
+        <li><a href="men.html"> 
+            <span class="icon">👨</span>
+            رجالي
+        </a></li>
+        <li><a href="women.html" class="active">
+            <span class="icon">👩</span>
+            نسائي
+        </a></li>
+        <li><a href="offers.html">
+            <span class="icon">🔥</span>
+            العروض
+        </a></li>
+        <li><a href="contact.html">
+            <span class="icon">📞</span>
+            اتصل بنا
+        </a></li>
+        <li><a href="cart.html">
+            <span class="icon">🛒</span>
+            السلة
+        </a></li>
+        <li><a href="about.html">
+            <span class="icon">👀</span>
+            عن المتجر
+        </a></li>
+    </ul>
+</nav>
+
+    <section class="products">
+        <h1>قسم النسائي — إغراء اناقة و راحة فاخرة 😏💋</h1>
+        <p class="section-desc">اختاري من أجمل التصاميم... كل قطعة تخليكِ تشعري بالاناقة والإثارة</p>
+
+        <div class="product-grid" id="products-container">
+    <p style="text-align:center; color:#888; font-size:20px; padding:50px;">جاري تحميل المنتجات من المخزن... 🔥</p>
+</div>
+
+<script>
+// تحميل المنتجات من Firebase ديناميكي
+db.collection("products").orderBy("addedAt", "desc").onSnapshot((snapshot) => {
+    const container = document.getElementById("products-container");
+    container.innerHTML = ""; // امسح رسالة التحميل
+
+    if (snapshot.empty) {
+        container.innerHTML = '<p style="text-align:center; color:#ff4081; font-size:24px;">نعتدر على المنتج... دلك لنفاد الكمية  😅</p>';
+        return;
+    }
+
+    snapshot.forEach(doc => {
+        const p = doc.data();
+        if (p.category !== 'women') return; // فقط النساء
+        // هنا تقدر تضيف فلتر حسب الصفحة لو تبغي (اختياري)
+        // مثال: لو الصفحة men.html وتبغي فقط الرجالي، أضف شرط p.category === "men"
+
+        container.innerHTML += `
+            <div class="product-card">
+                <img src="${p.image}" alt="${p.name}" class="zoomable">
+                <h3>${p.name}</h3>
+                <p class="desc">${p.desc || ''}</p>
+                <p class="price">${p.price} دج</p>
+                <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة 💲</button>
+            </div>
+        `;
+    });
+
+    // أعد ربط أزرار السلة والـ zoom بعد التحميل الجديد
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.onclick = () => {
+            const name = btn.dataset.name;
+            const price = Number(btn.dataset.price);
+            cart.push({ name, price });
+            localStorage.setItem('langeriCart', JSON.stringify(cart));
+            updateHeader();
+            alert(`أضيف "${name}" للسلة بنجاح! المجموع: ${cart.reduce((sum, item) => sum + item.price, 0)} دج 💦`);
+        };
+    });
+
+    document.querySelectorAll('.zoomable').forEach(img => {
+        img.onclick = () => {
+            document.getElementById('lightbox-image').src = img.src;
+            document.getElementById('lightbox').style.display = 'flex';
+        };
+    });
+});
+</script>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox-overlay">
+        <span class="close-lightbox">×</span>
+        <img id="lightbox-image" src="" alt="تكبير">
+    </div>
+
+    <footer>
+        <p>&copy; 2025 لالجيري شوب 🇩🇿 - مصداقية وتقة تامة | اناقة وراحة لكل النساء</p>
+    </footer>
+
+    <!-- السكريبت الموحد للسلة والـ lightbox -->
+    <script>
+        // تحميل السلة من localStorage
+        let cart = JSON.parse(localStorage.getItem('langeriCart') || '[]');
+
+        // تحديث العداد والمجموع في الهيدر
+        function updateHeader() {
+            const count = cart.length;
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            const countEl = document.getElementById('cart-count');
+            const totalEl = document.getElementById('cart-total');
+            if (countEl) countEl.textContent = count;
+            if (totalEl) totalEl.textContent = total;
+        }
+
+        // إضافة منتج للسلة
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const name = btn.dataset.name;
+                const price = parseInt(btn.dataset.price);
+                cart.push({ name, price });
+                localStorage.setItem('langeriCart', JSON.stringify(cart));
+                updateHeader();
+                alert(`أضيف "${name}" للسلة بنجاح!\nالمجموع دلوقتي: ${cart.reduce((sum, item) => sum + item.price, 0)} دج 💲💦`);
+            });
+        });
+
+        // تحديث الهيدر عند تحميل الصفحة
+        updateHeader();
+
+        // Lightbox (إذا موجود في الصفحة)
+        const lightbox = document.getElementById('lightbox');
+        if (lightbox) {
+            const lightboxImage = document.getElementById('lightbox-image');
+            const closeBtn = document.querySelector('.close-lightbox');
+
+            document.querySelectorAll('.zoomable').forEach(img => {
+                img.addEventListener('click', () => {
+                    lightboxImage.src = img.src;
+                    lightbox.style.display = 'flex';
+                });
+            });
+
+            closeBtn.addEventListener('click', () => lightbox.style.display = 'none');
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) lightbox.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

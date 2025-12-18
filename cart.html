@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<title>السلة - لالجيري شوب 🇩🇿 | إكمال الطلب</title>
+<meta name="description" content="أكمل طلبك دلوقتي بسرية تامة ✅ دفع عند الاستلام ✅ توصيل سريع ✅ سلة التسوق الخاصة بك جاهزة">
+<meta name="keywords" content="سلة تسوق لانجري, إكمال طلب لانجري الجزائر, دفع عند الاستلام">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السلة - لالجيري شوب 🇩🇿</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .checkout-buttons { text-align: center; margin: 40px 0; }
+        .checkout-btn {
+            display: block;
+            width: 80%;
+            max-width: 400px;
+            padding: 25px;
+            margin: 20px auto;
+            font-size: 26px;
+            font-weight: bold;
+            border-radius: 25px;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+        .whatsapp-btn { background: #25D366; color: white; }
+        .messenger-btn { background: #0084FF; color: white; }
+        .telegram-btn { background: #229ED9; color: white; }
+        .checkout-btn:hover { transform: scale(1.05); }
+        .btn-icon { width: 50px; vertical-align: middle; margin-left: 15px; }
+        .note { text-align: center; font-size: 20px; color: #00ff88; margin: 30px; }
+
+        /* نموذج الطلب */
+        .order-form {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(194,24,91,0.5);
+        }
+        .order-form input, .order-form textarea {
+            width: 100%;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 15px;
+            background: #333;
+            color: white;
+            border: none;
+            font-size: 18px;
+        }
+        .start-order-btn {
+            display: block;
+            width: 80%;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 25px;
+            background: #c2185b;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(194,24,91,0.5);
+        }
+        .start-order-btn:hover {
+            background: #ff4081;
+            transform: scale(1.05);
+        }
+    </style>
+
+    <!-- Firebase SDK + Config -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyBIUIVNwL6wip1eUlZfkMYMN0qoJ6QOLAU",
+          authDomain: "lalgeri-shop.firebaseapp.com",
+          projectId: "lalgeri-shop",
+          storageBucket: "lalgeri-shop.firebasestorage.app",
+          messagingSenderId: "181963289442",
+          appId: "1:181963289442:web:ae9f6da7c55422fec5723b"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5DT4LKCHTQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5DT4LKCHTQ');
+</script>
+</head>
+<body>
+
+    <!-- التيكر الديناميكي -->
+    <div class="ticker" id="ticker-container">
+        <div class="ticker-content" id="ticker-content">
+            <span>جاري تحميل العروض... 🔥</span>
+        </div>
+    </div>
+
+    <header>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
+            <div class="logo">لالجيري شوب 🇩🇿</div>
+        </div>
+        <div class="cart">🛒 السلة (<span id="cart-count">0</span>) - المجموع: <span id="cart-total">0</span> دج</div>
+    </header>
+
+    <nav>
+    <ul>
+        <li><a href="index.html"> 
+            <span class="icon">🏠</span>
+            الرئيسية
+        </a></li>
+        <li><a href="men.html"> 
+            <span class="icon">👨</span>
+            رجالي
+        </a></li>
+        <li><a href="women.html">
+            <span class="icon">👩</span>
+            نسائي
+        </a></li>
+        <li><a href="offers.html">
+            <span class="icon">🔥</span>
+            العروض
+        </a></li>
+        <li><a href="contact.html"> 
+            <span class="icon">📞</span>
+            اتصل بنا
+        </a></li>
+        <li><a href="cart.html" class="active">
+            <span class="icon">🛒</span>
+            السلة
+        </a></li>
+        <li><a href="about.html">
+            <span class="icon">👀</span>
+            عن المتجر
+        </a></li>
+    </ul>
+</nav>
+
+    <section class="cart-page">
+        <h1>سلة التسوق الخاصة بك 😈💦</h1>
+        <div id="cart-items" class="cart-table-container"></div>
+
+        <div class="cart-summary">
+            <h2>المجموع النهائي: <span id="final-total">0</span> دج</h2>
+
+            <!-- زر بدء الطلب -->
+            <button class="start-order-btn" id="start-order-btn">أكمل بيانات الطلب</button>
+
+            <!-- نموذج الطلب (مخفي في البداية) -->
+            <div class="order-form" id="order-form" style="display:none;">
+                <h3 style="color:#ff4081;text-align:center;">أدخل بياناتك لإكمال الطلب</h3>
+                <input type="text" id="customer-name" placeholder="اسمك الكامل" required>
+                <input type="tel" id="customer-phone" placeholder="رقم هاتفك (مثل: 0555123456)" required>
+                <input type="text" id="customer-address" placeholder="عنوانك التفصيلي" required>
+                <input type="text" id="customer-wilaya" placeholder="الولاية" required>
+                <textarea id="customer-notes" placeholder="ملاحظات إضافية (اختياري)"></textarea>
+
+                <div class="checkout-buttons">
+                    <a href="#" id="whatsapp-checkout" class="checkout-btn whatsapp-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب" class="btn-icon">
+                        إرسال عبر واتساب
+                    </a>
+                    <a href="#" id="messenger-checkout" class="checkout-btn messenger-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="مسنجر" class="btn-icon">
+                        إرسال عبر مسنجر
+                    </a>
+                    <a href="#" id="telegram-checkout" class="checkout-btn telegram-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="تليجرام" class="btn-icon">
+                        إرسال عبر تليجرام
+                    </a>
+                </div>
+            </div>
+
+            <p class="note">سنتواصل معك فورًا لتأكيد الطلب والتوصيل 🚚<br>دفع عند الاستلام أو تحويل بريدي موب - مصداقية تامة</p>
+        </div>
+    </section>
+
+    <footer>&copy; 2025 لالجيري شوب 🇩🇿 - مصداقية تامة</footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('langeriCart') || '[]');
+
+        const cartCount = document.getElementById('cart-count');
+        const cartTotal = document.getElementById('cart-total');
+        const cartItems = document.getElementById('cart-items');
+        const finalTotal = document.getElementById('final-total');
+        const startOrderBtn = document.getElementById('start-order-btn');
+        const orderForm = document.getElementById('order-form');
+        const whatsappBtn = document.getElementById('whatsapp-checkout');
+        const messengerBtn = document.getElementById('messenger-checkout');
+        const telegramBtn = document.getElementById('telegram-checkout');
+
+        function updateCartDisplay() {
+            cartCount.textContent = cart.length;
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            cartTotal.textContent = total;
+            finalTotal.textContent = total;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="font-size:24px; color:#888;">السلة فارغة... روح تسوق وولّي الليلة نار 😈</p>';
+                startOrderBtn.style.display = 'none';
+            } else {
+                let table = '<table class="cart-table"><tr><th>المنتج</th><th>السعر</th><th>حذف</th></tr>';
+                cart.forEach((item, index) => {
+                    table += `<tr><td>${item.name}</td><td>${item.price} دج</td><td><button class="remove-btn" data-index="${index}">حذف</button></td></tr>`;
+                });
+                table += '</table>';
+                cartItems.innerHTML = table;
+
+                document.querySelectorAll('.remove-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const index = parseInt(btn.dataset.index);
+                        cart.splice(index, 1);
+                        localStorage.setItem('langeriCart', JSON.stringify(cart));
+                        updateCartDisplay();
+                    });
+                });
+
+                startOrderBtn.style.display = 'block';
+            }
+        }
+
+        // إظهار النموذج
+        startOrderBtn.onclick = () => {
+            orderForm.style.display = 'block';
+            startOrderBtn.style.display = 'none';
+        };
+
+        // إرسال الطلب
+        function sendOrder(platform) {
+            const name = document.getElementById('customer-name').value.trim();
+            const phone = document.getElementById('customer-phone').value.trim();
+            const address = document.getElementById('customer-address').value.trim();
+            const wilaya = document.getElementById('customer-wilaya').value.trim();
+            const notes = document.getElementById('customer-notes').value.trim();
+
+            if (!name || !phone || !address || !wilaya) {
+                alert('املأ كل البيانات المطلوبة أولاً!');
+                return;
+            }
+
+            let message = `مرحبا لالجيري شوب 🇩🇿\n\nطلب جديد:\n`;
+            cart.forEach(item => message += `- ${item.name} : ${item.price} دج\n`);
+            message += `\nالمجموع: ${cart.reduce((sum, item) => sum + item.price, 0)} دج\n\nالبيانات:\n`;
+            message += `الاسم: ${name}\nرقم الهاتف: ${phone}\nالعنوان: ${address}\nالولاية: ${wilaya}\nملاحظات: ${notes || 'لا يوجد'}\n\nشكرًا 😈`;
+
+            const encoded = encodeURIComponent(message);
+
+            let url;
+            if (platform === 'whatsapp') url = `https://wa.me/213662952145?text=${encoded}`; // غير الرقم لو تبغي
+            if (platform === 'messenger') url = `https://m.me/Nacer babo?text=${encoded}`;
+            if (platform === 'telegram') url = `https://t.me/My_evGrok_bot?text=${encoded}`;
+
+            window.open(url, '_blank');
+        }
+
+        whatsappBtn.onclick = (e) => { e.preventDefault(); sendOrder('whatsapp'); };
+        messengerBtn.onclick = (e) => { e.preventDefault(); sendOrder('messenger'); };
+        telegramBtn.onclick = (e) => { e.preventDefault(); sendOrder('telegram'); };
+
+        updateCartDisplay();
+
+        // التيكر
+        db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
+            const content = document.getElementById('ticker-content');
+            content.innerHTML = "";
+            if (snapshot.empty) {
+                content.innerHTML = '<span>🔥 مرحبا في لالجيري شوب - مصداقية تامة 🇩🇿</span>';
+                return;
+            }
+            snapshot.forEach(doc => {
+                const t = doc.data();
+                if (t.image) {
+                    content.innerHTML += `<span><img src="${t.image}" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;"> ${t.message}</span>`;
+                } else {
+                    content.innerHTML += `<span>${t.message}</span>`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

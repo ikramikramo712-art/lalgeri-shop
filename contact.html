@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<title>اتصل بنا - لالجيري شوب 🇩🇿 | تواصل سري</title>
+<meta name="description" content="تواصل معنا بكل سرية عبر واتساب أو مسنجر أو تليجرام ✅ إجابة فورية ✅ طلبات خاصة ✅ توصيل لكل الولايات">
+<meta name="keywords" content="تواصل لانجري شوب, واتساب لانجري الجزائر, خدمة عملاء لانجري">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اتصل بنا - لالجيري شوب 🇩🇿</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyBIUIVNwL6wip1eUlZfkMYMN0qoJ6QOLAU",
+          authDomain: "lalgeri-shop.firebaseapp.com",
+          projectId: "lalgeri-shop",
+          storageBucket: "lalgeri-shop.firebasestorage.app",
+          messagingSenderId: "181963289442",
+          appId: "1:181963289442:web:ae9f6da7c55422fec5723b"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5DT4LKCHTQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5DT4LKCHTQ');
+</script>
+</head>
+<body>
+
+    <!-- التيكر الديناميكي -->
+    <div class="ticker" id="ticker-container">
+        <div class="ticker-content" id="ticker-content">
+            <span>جاري تحميل العروض... 🔥</span>
+        </div>
+    </div>
+
+    <script>
+        db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
+            const content = document.getElementById('ticker-content');
+            content.innerHTML = "";
+            if (snapshot.empty) {
+                content.innerHTML = '<span>🔥 مرحبا في لالجيري شوب - مصداقية تامة 🇩🇿</span>';
+                return;
+            }
+            snapshot.forEach(doc => {
+                const t = doc.data();
+                if (t.image) {
+                    content.innerHTML += `<span><img src="${t.image}" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;"> ${t.message}</span>`;
+                } else {
+                    content.innerHTML += `<span>${t.message}</span>`;
+                }
+            });
+        });
+    </script>
+
+    <header>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
+            <div class="logo">لالجيري شوب 🇩🇿</div>
+        </div>
+        <div class="cart">🛒 السلة (<span id="cart-count">0</span>)</div>
+    </header>
+
+    <nav>
+    <ul>
+        <li><a href="index.html"> 
+            <span class="icon">🏠</span>
+            الرئيسية
+        </a></li>
+        <li><a href="men.html"> 
+            <span class="icon">👨</span>
+            رجالي
+        </a></li>
+        <li><a href="women.html">
+            <span class="icon">👩</span>
+            نسائي
+        </a></li>
+        <li><a href="offers.html">
+            <span class="icon">🔥</span>
+            العروض
+        </a></li>
+        <li><a href="contact.html" class="active">
+            <span class="icon">📞</span>
+            اتصل بنا
+        </a></li>
+        <li><a href="cart.html">
+            <span class="icon">🛒</span>
+            السلة
+        </a></li>
+        <li><a href="about.html">
+            <span class="icon">👀</span>
+            عن المتجر
+        </a></li>
+    </ul>
+</nav>
+
+    <section class="contact">
+        <h1>تواصل معنا بكل حرية و ثقة 😉</h1>
+        <p class="welcome">نحن هنا للإجابة على كل أسئلتك، اقتراحاتك، أو طلباتك الخاصة... في أي وقت!</p>
+
+        <div class="contact-grid" id="contact-links">
+            <!-- الروابط هتتحمل ديناميكي هنا -->
+            <p style="text-align:center;color:#888;">جاري تحميل وسائل التواصل...</p>
+        </div>
+
+        <div class="info">
+            <p><strong>⏰ ساعات العمل:</strong> 9 صباحًا - 11 مساءً (كل أيام الأسبوع)</p>
+            <p><strong>🚚 التوصيل:</strong> سري وآمن لـ 58 ولاية</p>
+            <p><strong>🔒 الصدق والمصداقية:</strong> طلباتك تبقى امنة... دائمًا</p>
+        </div>
+
+        <!-- نموذج اتصال بسيط -->
+        <div class="contact-form">
+            <h2>أرسل لنا رسالة</h2>
+            <form onsubmit="alert('تم إرسال رسالتك بنجاح! سنرد عليك في أقرب وقت ممكن🙂'); return false;">
+                <input type="text" placeholder="اسمك" required><br><br>
+                <input type="tel" placeholder="رقم هاتفك" required><br><br>
+                <textarea placeholder="رسالتك أو طلبك الخاص..." rows="6" required></textarea><br><br>
+                <button type="submit" class="add-to-cart">إرسال الرسالة</button>
+            </form>
+        </div>
+
+        <!-- خريطة -->
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.318309158!2d3.0586!3d36.7763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128fb26f9d1f5d6f%3A0x1e3f4c5b6d7e8f9a!2sAlgiers%2C%20Algeria!5e0!3m2!1sen!2sdz!4v1700000000000" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 لالجيري شوب 🇩🇿 - مصداقية تامة | راحة مضمونة | إغراء لا يُقاوم</p>
+    </footer>
+
+    <!-- السكريبت الموحد للسلة والـ lightbox + تحميل روابط التواصل -->
+    <script>
+        let cart = JSON.parse(localStorage.getItem('langeriCart') || '[]');
+
+        function updateHeader() {
+            const count = cart.length;
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            const countEl = document.getElementById('cart-count');
+            if (countEl) countEl.textContent = count;
+        }
+
+        // إضافة منتج للسلة (لو في منتجات في الصفحة)
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const name = btn.dataset.name;
+                const price = parseInt(btn.dataset.price);
+                cart.push({ name, price });
+                localStorage.setItem('langeriCart', JSON.stringify(cart));
+                updateHeader();
+                alert(`أضيف "${name}" للسلة بنجاح! ✔️`);
+            });
+        });
+
+        updateHeader();
+
+        // تحميل روابط التواصل ديناميكي من Firebase
+        db.collection("settings").doc("contact").onSnapshot((doc) => {
+            const container = document.getElementById('contact-links');
+            container.innerHTML = "";
+
+            if (!doc.exists) {
+                container.innerHTML = '<p style="text-align:center;color:#ff4081;">نعتدر على المنتج... دلك لنفاد الكمية 😅</p>';
+                return;
+            }
+
+            const data = doc.data();
+
+            const whatsapp = data.whatsapp || '213555123456';
+            const messenger = data.messenger || 'langeryshopdz';
+            const telegram = data.telegram || 'langerishopdz';
+            const instagram = data.instagram || 'langeri.shop.dz';
+
+            container.innerHTML = `
+                <div class="contact-card">
+                    <span class="icon">📱</span>
+                    <h3>واتساب</h3>
+                    <p>${whatsapp}</p>
+                    <a href="https://wa.me/${whatsapp}" target="_blank" class="contact-btn">راسلنا الآن</a>
+                </div>
+                <div class="contact-card">
+                    <span class="icon">📘</span>
+                    <h3>فيسبوك مسنجر</h3>
+                    <p>${messenger}</p>
+                    <a href="https://m.me/${messenger}" target="_blank" class="contact-btn">راسلنا</a>
+                </div>
+                <div class="contact-card">
+                    <span class="icon">💬</span>
+                    <h3>تليجرام</h3>
+                    <p>@${telegram}</p>
+                    <a href="https://t.me/${telegram}" target="_blank" class="contact-btn">راسلنا</a>
+                </div>
+                <div class="contact-card">
+                    <span class="icon">📷</span>
+                    <h3>إنستغرام</h3>
+                    <p>@${instagram}</p>
+                    <a href="https://instagram.com/${instagram}" target="_blank" class="contact-btn">تابعنا</a>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
