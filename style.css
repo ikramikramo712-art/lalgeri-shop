@@ -597,3 +597,143 @@ nav ul li a.active {
     background: #ff4081;
     transform: scale(1.05);
 }
+
+.discount-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #c2185b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 0 15px rgba(194, 24, 91, 0.8);
+    z-index: 10;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 20px;
+}
+
+/* تأثيرات عامة للكروت المنتجات */
+.product-card, .featured-card {
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card:hover, .featured-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(194, 24, 91, 0.6);
+    z-index: 10;
+}
+
+/* تأثير على الصور */
+.product-card img, .featured-card img {
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover img, .featured-card:hover img {
+    transform: scale(1.1);
+}
+
+/* تأثير نبض للأزرار */
+.add-to-cart, .start-order-btn, .checkout-btn {
+    transition: all 0.3s ease;
+    animation: pulse-btn 2s infinite;
+}
+
+.add-to-cart:hover, .start-order-btn:hover, .checkout-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ff4081;
+}
+
+@keyframes pulse-btn {
+    0% { box-shadow: 0 0 0 0 rgba(194, 24, 91, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(194, 24, 91, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(194, 24, 91, 0); }
+}
+
+/* تأثير نبض للبدجات الخصم */
+.discount-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(45deg, #c2185b, #ff4081);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 0 20px rgba(194, 24, 91, 0.8);
+    z-index: 10;
+    animation: pulse-badge 1.5s infinite, glow 2s infinite alternate;
+}
+
+@keyframes pulse-badge {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 10px #c2185b; }
+    to { box-shadow: 0 0 30px #ff4081; }
+}
+
+/* تأثير على الناف زرار */
+nav ul li a {
+    transition: all 0.4s ease;
+}
+
+nav ul li a:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 10px 20px rgba(194, 24, 91, 0.5);
+}
+
+nav ul li a.active {
+    animation: active-glow 2s infinite;
+}
+
+@keyframes active-glow {
+    0% { box-shadow: 0 0 10px #ff4081; }
+    50% { box-shadow: 0 0 20px #ff4081; }
+    100% { box-shadow: 0 0 10px #ff4081; }
+}
+
+/* تحسين التيكر (حركة أكثر سلاسة) */
+.ticker-content {
+    display: flex;
+    animation: scroll-left 30s linear infinite;
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* تأثير fade-in للمنتجات لما تحمل */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.product-card, .featured-card {
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}

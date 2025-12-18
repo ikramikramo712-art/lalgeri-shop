@@ -1,152 +1,69 @@
-<div class="ticker" id="ticker-container">
-    <div class="ticker-content" id="ticker-content">
-        <span>جاري تحميل العروض... 🔥</span>
-    </div>
-</div>
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<title>لالجيري شوب 🇩🇿 | ملابس داخلية فاخرة رجالي ونسائي في الجزائر</title>
-<meta name="description" content="تسوق أفضل اللالجيري والملابس الداخلية في الجزائر ✅ سرية تامة ✅ توصيل لـ 58 ولاية ✅ أسعار تفشخ ✅ بوكسر رجالي وطقم نسائي فاخر">
-<meta name="keywords" content="لالجيري الجزائر, ملابس داخلية نسائية, بوكسر رجالي, لالجيري جزائري, طقم برا وبانتي, ستيوكينغز, متجر لالجيري اونلاين الجزائر">
-
-<!-- Open Graph للمشاركة -->
-<meta property="og:title" content="لالجيري شوب 🇩🇿 - أفضل متجر لالجيري في الجزائر">
-<meta property="og:description" content="سرية تامة | توصيل سريع | جودة عالية | عروض يومية 🔥">
-<meta property="og:image" content="https://your-site.com/images/og-image.jpg"> <!-- غيرها بصورة حلوة للمتجر -->
-<meta property="og:url" content="https://your-site.com">
-<meta property="og:type" content="website">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لالجيري شوب 🇩🇿 - ملابس داخلية فاخرة</title>
-    <link rel="stylesheet" href="style.css">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
 
-    <!-- Firebase SDK -->
+    <!-- SEO + Title جذاب للرئيسية -->
+    <title>لالجيري شوب 🇩🇿 | أفضل متجر لانجري وملابس داخلية في الجزائر</title>
+    <meta name="description" content="تسوق لانجري نسائي ورجالي فاخر في الجزائر ✅ مصداقية  تامة ✅ توصيل لـ 58 ولاية ✅ عروض يومية تفشخ ✅ بوكسر رجالي وطقم دانتيل">
+    <meta name="keywords" content="لانجري الجزائر, ملابس داخلية نسائية, بوكسر رجالي, طقم برا وبانتي, متجر لانجري اونلاين الجزائر, عروض لانجري">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="لالجيري شوب 🇩🇿 - متجر اللانجري الأول في الجزائر">
+    <meta property="og:description" content="مصداقية  تامة | جودة فاخرة | توصيل سريع | عروض لا تُقاوم 🔥">
+    <meta property="og:image" content="https://ikramikramo712-art.github.io/lalgeri-shop/images/main-og.jpg">
+    <meta property="og:url" content="https://ikramikramo712-art.github.io/lalgeri-shop/">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5DT4LKCHTQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5DT4LKCHTQ');
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase SDK + Config -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
-        // Firebase Config بتاعك
         const firebaseConfig = {
-            apiKey: "AIzaSyBIUIVNwL6wip1eUlZfkMYMN0qoJ6QOLAU",
-            authDomain: "lalgeri-shop.firebaseapp.com",
-            projectId: "lalgeri-shop",
-            storageBucket: "lalgeri-shop.firebasestorage.app",
-            messagingSenderId: "181963289442",
-            appId: "1:181963289442:web:ae9f6da7c55422fec5723b"
+          apiKey: "AIzaSyBIUIVNwL6wip1eUlZfkMYMN0qoJ6QOLAU",
+          authDomain: "lalgeri-shop.firebaseapp.com",
+          projectId: "lalgeri-shop",
+          storageBucket: "lalgeri-shop.firebasestorage.app",
+          messagingSenderId: "181963289442",
+          appId: "1:181963289442:web:ae9f6da7c55422fec5723b"
         };
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
     </script>
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5DT4LKCHTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-5DT4LKCHTQ');
-</script>
 </head>
 <body>
 
-    <header>
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
-            <div class="logo">لالجيري شوب 🇩🇿</div>
+    <!-- التيكر الديناميكي -->
+    <div class="ticker" id="ticker-container">
+        <div class="ticker-content" id="ticker-content">
+            <span>جاري تحميل العروض... 🔥</span>
         </div>
-        <div class="cart">🛒 السلة (<span id="cart-count">0</span>) - المجموع: <span id="cart-total">0</span> دج</div>
-    </header>
-
-    <nav>
-    <ul>
-        <li><a href="index.html" class="active">
-            <span class="icon">🏠</span>
-            الرئيسية
-        </a></li>
-        <li><a href="men.html">
-            <span class="icon">👨</span>
-            رجالي
-        </a></li>
-        <li><a href="women.html">
-            <span class="icon">👩</span>
-            نسائي
-        </a></li>
-        <li><a href="offers.html">
-            <span class="icon">🔥</span>
-            العروض
-        </a></li>
-        <li><a href="contact.html">
-            <span class="icon">📞</span>
-            اتصل بنا
-        </a></li>
-        <li><a href="cart.html">
-            <span class="icon">🛒</span>
-            السلة
-        </a></li>
-        <li><a href="about.html">
-            <span class="icon">👀</span>
-            عن المتجر
-        </a></li>
-    </ul>
-</nav>
-
-    <!-- Slider -->
-    <div class="slider">
-        <div class="slides">
-            <div class="slide active">
-                <img src="https://embrator-eg.com/cdn/shop/collections/124-S-10.jpg?v=1764541004&width=3600" alt="لالجيري نسائي">
-                <div class="caption">مجموعة نسائية جديدة - إغراء وراحة 💋</div>
-            </div>
-            <div class="slide">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsnQb8rmGsDgp0xdeBtdC0OvvaRxSS4uyL06x1t2y2vJnIYk-kwtOIf2Bl5geu6xojVHm7Cs_ofW-xJRSYhjqm6CeJzHZNvsL0FPRDicJjZYmtj9DcuZiM3SS4nTAp_ARJKETsvm2c9ywHW_VBtu2oeSHHH73Vr6W2jlIghP9dQXY-h_zDKZ0GIvlS1dSW/w1200-h675-p-k-no-nu/%D9%85%D9%84%D8%A7%D8%A8%D8%B3%20%D8%AF%D8%A7%D8%AE%D9%84%D9%8A%D8%A9%20%D9%84%D9%84%D9%86%D8%B3%D8%A7%D8%A1.webp" alt="ملابس رجالي">
-                <div class="caption">ملابس داخلية رجالية - راحة يومية 😈</div>
-            </div>
-            <div class="slide">
-                <img src="https://cdn.salla.sa/DnwoY/dbb72a72-f2b8-4c44-8c02-c3fc250a3d05-1000x500-SdO7bqpWRZEVb0xdEgqorlgv6BDaZDG332xhci2a.jpg" alt="عروض">
-                <div class="caption">عروض تصل إلى 70% + شحن مجاني</div>
-            </div>
-        </div>
-        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
-        <button class="next" onclick="changeSlide(1)">&#10095;</button>
     </div>
-
-    <section class="featured-products">
-        <h1>منتجات مميزة من المخزن 🔥</h1>
-        <div class="product-grid" id="products-container">
-            <p style="text-align:center; color:#888; font-size:20px; padding:50px;">جاري تحميل المنتجات... 🔥</p>
-        </div>
-    </section>
-
-<section class="featured">
-    <h1>🔥 الأكثر مبيعًا والمميز</h1>
-    <p class="section-desc">أفضل المنتجات اللي اختارها زبائننا... جربها وهتدمن عليها 😈</p>
-    <div class="featured-grid" id="featured-container">
-        <p style="text-align:center;color:#888;font-size:20px;padding:50px;">جاري تحميل الأكثر مبيعًا...</p>
-    </div>
-    <a href="offers.html" class="more-btn">شوف كل العروض والمنتجات</a>
-</section>
-
-    <div id="lightbox" class="lightbox-overlay">
-        <span class="close-lightbox">×</span>
-        <img id="lightbox-image" src="" alt="تكبير">
-    </div>
-
-    <footer>
-        <p>&copy; 2025 لالجيري شوب 🇩🇿 - سرية تامة</p>
-    </footer>
 
     <script>
-        // تحميل الرسائل للتيكر
         db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             const content = document.getElementById('ticker-content');
             content.innerHTML = "";
             if (snapshot.empty) {
-                content.innerHTML = '<span>🔥 مرحبا في لالجيري شوب - سرية تامة 🇩🇿</span>';
+                content.innerHTML = '<span>🔥 مرحبا في لالجيري شوب - مصداقية  تامة 🇩🇿</span>';
                 return;
             }
             snapshot.forEach(doc => {
@@ -158,17 +75,116 @@
                 }
             });
         });
+    </script>
 
-        // سلة مشتركة
+    <!-- الهيدر -->
+    <header>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <img src="https://flagcdn.com/w320/dz.gif" alt="علم الجزائر" class="algeria-flag">
+            <div class="logo">لالجيري شوب 🇩🇿</div>
+        </div>
+        <div class="cart">🛒 السلة (<span id="cart-count">0</span>) - المجموع: <span id="cart-total">0</span> دج</div>
+    </header>
+
+    <!-- الناف -->
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">
+                <span class="icon">🏠</span>
+                الرئيسية
+            </a></li>
+            <li><a href="men.html">
+                <span class="icon">👨</span>
+                رجالي
+            </a></li>
+            <li><a href="women.html">
+                <span class="icon">👩</span>
+                نسائي
+            </a></li>
+            <li><a href="offers.html">
+                <span class="icon">🔥</span>
+                العروض
+            </a></li>
+            <li><a href="contact.html">
+                <span class="icon">📞</span>
+                اتصل بنا
+            </a></li>
+            <li><a href="cart.html">
+                <span class="icon">🛒</span>
+                السلة
+            </a></li>
+            <li><a href="about.html">
+                <span class="icon">👀</span>
+                عن المتجر
+            </a></li>
+        </ul>
+    </nav>
+
+    <!-- قسم الأكثر مبيعًا والمميز -->
+    <section class="featured">
+        <h1>🔥 الأكثر مبيعًا والمميز</h1>
+        <p class="section-desc">أفضل المنتجات اللي اختارها زبائننا... جربها وهتدمن عليها 😈</p>
+        <div class="featured-grid" id="featured-container">
+            <p style="text-align:center;color:#888;font-size:20px;padding:50px;">جاري تحميل الأكثر مبيعًا...</p>
+        </div>
+        <a href="offers.html" class="more-btn">شوف كل العروض والمنتجات</a>
+    </section>
+
+    <!-- قسم المنتجات العادية -->
+    <section class="products">
+        <h1>كل المنتجات</h1>
+        <div class="product-grid" id="products-container">
+            <p style="text-align:center;color:#888;font-size:20px;padding:50px;">جاري تحميل المنتجات...</p>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox-overlay">
+        <span class="close-lightbox">×</span>
+        <img id="lightbox-image" src="" alt="تكبير">
+    </div>
+
+    <footer>&copy; 2025 لالجيري شوب 🇩🇿 - مصداقية تامة</footer>
+
+    <script>
         let cart = JSON.parse(localStorage.getItem('langeriCart') || '[]');
 
         function updateHeader() {
-            document.getElementById('cart-count').textContent = cart.length;
+            const count = cart.length;
             const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cart-count').textContent = count;
             document.getElementById('cart-total').textContent = total;
         }
 
-        // تحميل المنتجات (الكل في الرئيسية)
+        // المنتجات المميزة (6)
+        db.collection("products")
+          .where("featured", "==", true)
+          .orderBy("addedAt", "desc")
+          .limit(6)
+          .onSnapshot((snapshot) => {
+              const container = document.getElementById("featured-container");
+              container.innerHTML = "";
+              if (snapshot.empty) {
+                  container.innerHTML = '<p style="text-align:center;color:#ff4081;font-size:24px;">ماكانش منتجات مميزة بعد... أضف من لوحة التحكم 😈</p>';
+                  return;
+              }
+              snapshot.forEach(doc => {
+                  const p = doc.data();
+                  container.innerHTML += `
+                      <div class="featured-card">
+                          <div class="discount-badge">مميز 🔥</div>
+                          <img src="${p.image}" alt="${p.name}" class="zoomable">
+                          <h3>${p.name}</h3>
+                          <p class="desc">${p.desc || ''}</p>
+                          <p class="price">${p.price} دج</p>
+                          <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة 😈</button>
+                      </div>
+                  `;
+              });
+              bindButtons();
+          });
+
+        // المنتجات العادية
         db.collection("products").orderBy("addedAt", "desc").onSnapshot((snapshot) => {
             const container = document.getElementById("products-container");
             container.innerHTML = "";
@@ -176,93 +192,42 @@
                 const p = doc.data();
                 container.innerHTML += `
                     <div class="product-card">
+                        ${p.category === 'offers' ? '<div class="discount-badge">خصم 50%</div>' : ''}
                         <img src="${p.image}" alt="${p.name}" class="zoomable">
                         <h3>${p.name}</h3>
                         <p class="desc">${p.desc || ''}</p>
                         <p class="price">${p.price} دج</p>
-                        <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة</button>
+                        <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة 😈</button>
                     </div>
                 `;
             });
-            // أعد ربط أزرار السلة
+            bindButtons();
+        });
+
+        // دالة ربط الأزرار مرة واحدة (تجنب التكرار)
+        function bindButtons() {
             document.querySelectorAll('.add-to-cart').forEach(btn => {
                 btn.onclick = () => {
                     cart.push({ name: btn.dataset.name, price: Number(btn.dataset.price) });
                     localStorage.setItem('langeriCart', JSON.stringify(cart));
                     updateHeader();
-                    alert(`أضيف "${btn.dataset.name}" للسلة! 😈`);
+                    alert(`أضيف "${btn.dataset.name}" للسلة بنجاح! 😈`);
                 };
             });
-            // Lightbox
+
             document.querySelectorAll('.zoomable').forEach(img => {
                 img.onclick = () => {
                     document.getElementById('lightbox-image').src = img.src;
                     document.getElementById('lightbox').style.display = 'flex';
                 };
             });
-        });
+        }
 
         updateHeader();
 
         // Lightbox close
         document.querySelector('.close-lightbox').onclick = () => document.getElementById('lightbox').style.display = 'none';
         document.getElementById('lightbox').onclick = (e) => { if (e.target.id === 'lightbox') document.getElementById('lightbox').style.display = 'none'; };
-
-        // Slider
-        let slideIndex = 0;
-        function showSlides() {
-            let slides = document.getElementsByClassName("slide");
-            for (let i = 0; i < slides.length; i++) slides[i].classList.remove("active");
-            slideIndex++;
-            if (slideIndex > slides.length) slideIndex = 1;
-            slides[slideIndex-1].classList.add("active");
-            setTimeout(showSlides, 5000);
-        }
-        showSlides();
-        function changeSlide(n) { slideIndex += n; showSlides(); }
-// Featured Products - الأكثر مبيعًا
-db.collection("products")
-  .where("featured", "==", true)
-  .orderBy("addedAt", "desc")
-  .limit(6)
-  .onSnapshot((snapshot) => {
-      const featuredContainer = document.getElementById("featured-container");
-      featuredContainer.innerHTML = "";
-      if (snapshot.empty) {
-          featuredContainer.innerHTML = '<p style="text-align:center;color:#ff4081;font-size:24px;">ماكانش منتجات مميزة بعد... أضف من لوحة التحكم 😈</p>';
-          return;
-      }
-      snapshot.forEach(doc => {
-          const p = doc.data();
-          featuredContainer.innerHTML += `
-              <div class="featured-card">
-                  <div class="featured-badge">مميز 🔥</div>
-                  <img src="${p.image}" alt="${p.name}" class="zoomable">
-                  <h3>${p.name}</h3>
-                  <p class="desc">${p.desc || ''}</p>
-                  <p class="price">${p.price} دج</p>
-                  <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة</button>
-              </div>
-          `;
-      });
-
-      // ربط أزرار السلة والـ zoom
-      document.querySelectorAll('#featured-container .add-to-cart').forEach(btn => {
-          btn.onclick = () => {
-              cart.push({ name: btn.dataset.name, price: Number(btn.dataset.price) });
-              localStorage.setItem('langeriCart', JSON.stringify(cart));
-              updateHeader();
-              alert(`أضيف "${btn.dataset.name}" للسلة! 😈`);
-          };
-      });
-
-      document.querySelectorAll('#featured-container .zoomable').forEach(img => {
-          img.onclick = () => {
-              document.getElementById('lightbox-image').src = img.src;
-              document.getElementById('lightbox').style.display = 'flex';
-          };
-      });
-  });
     </script>
 </body>
 </html>

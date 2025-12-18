@@ -1,77 +1,83 @@
-            
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
-<script>
-// Firebase Config بتاعك
-const firebaseConfig = {
-  apiKey: "AIzaSyBIUIVNwL6wip1eUlZfkMYMN0qoJ6QOLAU",
-  authDomain: "lalgeri-shop.firebaseapp.com",
-  projectId: "lalgeri-shop",
-  storageBucket: "lalgeri-shop.firebasestorage.app",
-  messagingSenderId: "181963289442",
-  appId: "1:181963289442:web:ae9f6da7c55422fec5723b"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-</script>
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5DT4LKCHTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-5DT4LKCHTQ');
-</script>
 <head>
-<title>عروض لانجري خاصة في الجزائر | خصومات تصل 50% | لالجيري شوب 🇩🇿</title>
-<meta name="description" content="عروض محدودة على اللانجري النسائي والرجالي ✅ شحن مجاني ✅ خصومات تفشخ ✅ لا تفوت العرض قبل ما يخلص 🔥">
-<meta name="keywords" content="عروض لانجري الجزائر, تخفيضات ملابس داخلية, عرض خاص بوكسر, عرض طقم نسائي">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>العروض الخاصة - لانجري شوب 🇩🇿</title>
+
+    <!-- SEO + Title جذاب لصفحة العروض -->
+    <title>عروض لانجري خاصة في الجزائر | خصومات تصل 50% | لالجيري شوب 🇩🇿</title>
+    <meta name="description" content="عروض محدودة على اللانجري النسائي والرجالي ✅ شحن مجاني ✅ خصومات تفشخ ✅ لا تفوت العرض قبل ما يخلص 🔥">
+    <meta name="keywords" content="عروض لانجري الجزائر, تخفيضات ملابس داخلية, عرض خاص بوكسر, عرض طقم نسائي, خصم لانجري اونلاين">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="عروض خاصة في لالجيري شوب 🇩🇿 - خصومات تصل 50%">
+    <meta property="og:description" content="عروض محدودة على اللانجري الفاخر ✅ سرية تامة ✅ توصيل سريع ✅ اغتنم الفرصة دلوقتي 🔥">
+    <meta property="og:image" content="https://ikramikramo712-art.github.io/lalgeri-shop/images/offers-og.jpg">
+    <meta property="og:url" content="https://ikramikramo712-art.github.io/lalgeri-shop/offers.html">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5DT4LKCHTQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5DT4LKCHTQ');
+    </script>
+
     <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase SDK + Config -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyBIUIVNwL6wip1eUlZfkMYMN0qoJ6QOLAU",
+          authDomain: "lalgeri-shop.firebaseapp.com",
+          projectId: "lalgeri-shop",
+          storageBucket: "lalgeri-shop.firebasestorage.app",
+          messagingSenderId: "181963289442",
+          appId: "1:181963289442:web:ae9f6da7c55422fec5723b"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
 </head>
 <body>
-<div class="ticker" id="ticker-container">
-    <div class="ticker-content" id="ticker-content">
-        <span>جاري تحميل العروض... 🔥</span>
-    </div>
-</div>
 
-<script>
-db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
-    const content = document.getElementById('ticker-content');
-    content.innerHTML = "";
-    if (snapshot.empty) {
-        content.innerHTML = '<span>🔥 مرحبا في لانجري شوب - سرية تامة 🇩🇿</span>';
-        return;
-    }
-    snapshot.forEach(doc => {
-        const t = doc.data();
-        if (t.image) {
-            content.innerHTML += `<span><img src="${t.image}" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;"> ${t.message}</span>`;
-        } else {
-            content.innerHTML += `<span>${t.message}</span>`;
-        }
-    });
-});
-</script>
-
-
-    <div class="ticker">
-        <div class="ticker-content">
-            <span>🔥 عروض محدودة — خصم يصل لـ 70% على منتجات مختارة!</span>
-            <span>💸 اشتري دلوقتي واستفيد من الشحن المجاني 🇩🇿</span>
-            <span>😈 لا تفوت — العروض تنتهي قريبًا!</span>
+    <!-- التيكر الديناميكي -->
+    <div class="ticker" id="ticker-container">
+        <div class="ticker-content" id="ticker-content">
+            <span>جاري تحميل العروض... 🔥</span>
         </div>
     </div>
 
+    <script>
+        db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
+            const content = document.getElementById('ticker-content');
+            content.innerHTML = "";
+            if (snapshot.empty) {
+                content.innerHTML = '<span>🔥 مرحبا في لالجيري شوب - سرية تامة 🇩🇿</span>';
+                return;
+            }
+            snapshot.forEach(doc => {
+                const t = doc.data();
+                if (t.image) {
+                    content.innerHTML += `<span><img src="${t.image}" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;"> ${t.message}</span>`;
+                } else {
+                    content.innerHTML += `<span>${t.message}</span>`;
+                }
+            });
+        });
+    </script>
+
+    <!-- الهيدر -->
     <header>
         <div style="display: flex; align-items: center; gap: 20px;">
             <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
@@ -80,96 +86,49 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
         <div class="cart">🛒 السلة (<span id="cart-count">0</span>) - المجموع: <span id="cart-total">0</span> دج</div>
     </header>
 
+    <!-- الناف -->
     <nav>
-    <ul>
-        <li><a href="index.html"> 
-            <span class="icon">🏠</span>
-            الرئيسية
-        </a></li>
-        <li><a href="men.html"> 
-            <span class="icon">👨</span>
-            رجالي
-        </a></li>
-        <li><a href="women.html">
-            <span class="icon">👩</span>
-            نسائي
-        </a></li>
-        <li><a href="offers.html" class="active">
-            <span class="icon">🔥</span>
-            العروض
-        </a></li>
-        <li><a href="contact.html">
-            <span class="icon">📞</span>
-            اتصل بنا
-        </a></li>
-        <li><a href="cart.html">
-            <span class="icon">🛒</span>
-            السلة
-        </a></li>
-        <li><a href="about.html">
-            <span class="icon">👀</span>
-            عن المتجر
-        </a></li>
-    </ul>
-</nav>
+        <ul>
+            <li><a href="index.html">
+                <span class="icon">🏠</span>
+                الرئيسية
+            </a></li>
+            <li><a href="men.html">
+                <span class="icon">👨</span>
+                رجالي
+            </a></li>
+            <li><a href="women.html">
+                <span class="icon">👩</span>
+                نسائي
+            </a></li>
+            <li><a href="offers.html" class="active">
+                <span class="icon">🔥</span>
+                العروض
+            </a></li>
+            <li><a href="contact.html">
+                <span class="icon">📞</span>
+                اتصل بنا
+            </a></li>
+            <li><a href="cart.html">
+                <span class="icon">🛒</span>
+                السلة
+            </a></li>
+            <li><a href="about.html">
+                <span class="icon">👀</span>
+                عن المتجر
+            </a></li>
+        </ul>
+    </nav>
 
     <section class="products">
         <h1>العروض الخاصة — خصومات تفشخ 🔥</h1>
         <p class="section-desc">منتجات مختارة بأسعار مخفضة لفترة محدودة... اغتنم الفرصة!</p>
-
         <div class="product-grid" id="products-container">
-    <p style="text-align:center; color:#888; font-size:20px; padding:50px;">جاري تحميل المنتجات من المخزن... 🔥</p>
-</div>
+            <p style="text-align:center; color:#888; font-size:20px; padding:50px;">جاري تحميل العروض... 🔥</p>
+        </div>
+    </section>
 
-<script>
-// تحميل المنتجات من Firebase ديناميكي
-db.collection("products").orderBy("addedAt", "desc").onSnapshot((snapshot) => {
-    const container = document.getElementById("products-container");
-    container.innerHTML = ""; // امسح رسالة التحميل
-
-    if (snapshot.empty) {
-        container.innerHTML = '<p style="text-align:center; color:#ff4081; font-size:24px;"> اسف المنتج انتهى حاليا سنافيك بالجديد قريبا</p>';
-        return;
-    }
-
-    snapshot.forEach(doc => {
-        const p = doc.data();
-        if (p.category !== 'offers') return; // فقط العروض
-        // هنا تقدر تضيف فلتر حسب الصفحة لو تبغي (اختياري)
-        // مثال: لو الصفحة men.html وتبغي فقط الرجالي، أضف شرط p.category === "men"
-
-        container.innerHTML += `
-            <div class="product-card">
-                <img src="${p.image}" alt="${p.name}" class="zoomable">
-                <h3>${p.name}</h3>
-                <p class="desc">${p.desc || ''}</p>
-                <p class="price">${p.price} دج</p>
-                <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة 😈</button>
-            </div>
-        `;
-    });
-
-    // أعد ربط أزرار السلة والـ zoom بعد التحميل الجديد
-    document.querySelectorAll('.add-to-cart').forEach(btn => {
-        btn.onclick = () => {
-            const name = btn.dataset.name;
-            const price = Number(btn.dataset.price);
-            cart.push({ name, price });
-            localStorage.setItem('langeriCart', JSON.stringify(cart));
-            updateHeader();
-            alert(`أضيف "${name}" للسلة بنجاح! المجموع: ${cart.reduce((sum, item) => sum + item.price, 0)} دج 💦`);
-        };
-    });
-
-    document.querySelectorAll('.zoomable').forEach(img => {
-        img.onclick = () => {
-            document.getElementById('lightbox-image').src = img.src;
-            document.getElementById('lightbox').style.display = 'flex';
-        };
-    });
-});
-</script>
-
+    <!-- Lightbox -->
     <div id="lightbox" class="lightbox-overlay">
         <span class="close-lightbox">×</span>
         <img id="lightbox-image" src="" alt="تكبير">
@@ -177,54 +136,66 @@ db.collection("products").orderBy("addedAt", "desc").onSnapshot((snapshot) => {
 
     <footer>&copy; 2025 لالجيري شوب 🇩🇿</footer>
 
-    <!-- السكريبت الموحد للسلة والـ lightbox -->
     <script>
-        // تحميل السلة من localStorage
         let cart = JSON.parse(localStorage.getItem('langeriCart') || '[]');
 
-        // تحديث العداد والمجموع في الهيدر
         function updateHeader() {
             const count = cart.length;
             const total = cart.reduce((sum, item) => sum + item.price, 0);
-            const countEl = document.getElementById('cart-count');
-            const totalEl = document.getElementById('cart-total');
-            if (countEl) countEl.textContent = count;
-            if (totalEl) totalEl.textContent = total;
+            document.getElementById('cart-count').textContent = count;
+            document.getElementById('cart-total').textContent = total;
         }
 
-        // إضافة منتج للسلة
-        document.querySelectorAll('.add-to-cart').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const name = btn.dataset.name;
-                const price = parseInt(btn.dataset.price);
-                cart.push({ name, price });
-                localStorage.setItem('langeriCart', JSON.stringify(cart));
-                updateHeader();
-                alert(`أضيف "${name}" للسلة بنجاح!\nالمجموع دلوقتي: ${cart.reduce((sum, item) => sum + item.price, 0)} دج 😈💦`);
+        // تحميل كل المنتجات ثم فلتر محلي على "offers" (بدون خطأ index)
+        db.collection("products").orderBy("addedAt", "desc").onSnapshot((snapshot) => {
+            const container = document.getElementById("products-container");
+            container.innerHTML = "";
+            let hasOffers = false;
+            snapshot.forEach(doc => {
+                const p = doc.data();
+                if (p.category === "offers") {
+                    hasOffers = true;
+                    container.innerHTML += `
+                        <div class="product-card">
+                            <div class="discount-badge">خصم 50%</div>
+                            <img src="${p.image}" alt="${p.name}" class="zoomable">
+                            <h3>${p.name}</h3>
+                            <p class="desc">${p.desc || ''}</p>
+                            <p class="price old-price">${Math.round(p.price * 2)} دج</p>
+                            <p class="price">${p.price} دج</p>
+                            <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة 😈</button>
+                        </div>
+                    `;
+                }
+            });
+
+            if (!hasOffers) {
+                container.innerHTML = '<p style="text-align:center; color:#ff4081; font-size:24px;">اسف العروض انتهت حاليا... سنوافيك بالجديد قريبا 🔥</p>';
+            }
+
+            // ربط أزرار السلة والـ zoom
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.onclick = () => {
+                    cart.push({ name: btn.dataset.name, price: Number(btn.dataset.price) });
+                    localStorage.setItem('langeriCart', JSON.stringify(cart));
+                    updateHeader();
+                    alert(`أضيف "${btn.dataset.name}" للسلة بنجاح! المجموع: ${cart.reduce((sum, item) => sum + item.price, 0)} دج 💦`);
+                };
+            });
+
+            document.querySelectorAll('.zoomable').forEach(img => {
+                img.onclick = () => {
+                    document.getElementById('lightbox-image').src = img.src;
+                    document.getElementById('lightbox').style.display = 'flex';
+                };
             });
         });
 
-        // تحديث الهيدر عند تحميل الصفحة
         updateHeader();
 
-        // Lightbox (إذا موجود في الصفحة)
-        const lightbox = document.getElementById('lightbox');
-        if (lightbox) {
-            const lightboxImage = document.getElementById('lightbox-image');
-            const closeBtn = document.querySelector('.close-lightbox');
-
-            document.querySelectorAll('.zoomable').forEach(img => {
-                img.addEventListener('click', () => {
-                    lightboxImage.src = img.src;
-                    lightbox.style.display = 'flex';
-                });
-            });
-
-            closeBtn.addEventListener('click', () => lightbox.style.display = 'none');
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) lightbox.style.display = 'none';
-            });
-        }
+        // Lightbox close
+        document.querySelector('.close-lightbox').onclick = () => document.getElementById('lightbox').style.display = 'none';
+        document.getElementById('lightbox').onclick = (e) => { if (e.target.id === 'lightbox') document.getElementById('lightbox').style.display = 'none'; };
     </script>
 </body>
 </html>
