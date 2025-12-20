@@ -737,3 +737,222 @@ nav ul li a.active {
 @keyframes fadeIn {
     to { opacity: 1; }
 }
+
+/* التيكر يبقى ثابت في الأعلى مهما سكرول */
+.ticker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* فوق كل حاجة */
+    background: #c2185b;
+    padding: 12px 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* الناف على الكمبيوتر زي ما هو */
+nav ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+}
+
+/* الناف على التليفون: زرار أصغر + سكرول أفقي */
+@media (max-width: 768px) {
+    nav {
+        overflow-x: auto; /* سكرول أفقي */
+        white-space: nowrap; /* الزرار في سطر واحد */
+        -webkit-overflow-scrolling: touch; /* سكرول سلس على آيفون */
+        padding: 10px 0;
+        background: #1e1e1e;
+        position: sticky;
+        top: 50px; /* تحت التيكر الثابت */
+        z-index: 999;
+    }
+
+    nav ul {
+        display: inline-flex;
+        gap: 15px;
+        padding: 0 20px;
+    }
+
+    nav ul li a {
+        width: 90px !important; /* أصغر شوية */
+        height: 90px !important;
+        font-size: 14px !important;
+    }
+
+    nav ul li a .icon {
+        font-size: 35px !important;
+    }
+
+    /* إخفاء الـ scrollbar عشان يبقى رايق */
+    nav::-webkit-scrollbar {
+        display: none;
+    }
+    nav {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+/* باقي الجسم يبدأ تحت التيكر عشان ما يختفيش تحته */
+body {
+    padding-top: 60px; /* مساحة للتيكر الثابت */
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 110px; /* تيكر + ناف على الموبايل */
+    }
+}
+
+/* المنتجات على الكمبيوتر grid عادي */
+.product-grid, .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    padding: 20px;
+}
+
+/* على الهاتف: سكرول أفقي للمنتجات */
+@media (max-width: 768px) {
+    .product-grid, .featured-grid {
+        display: flex;
+        overflow-x: auto; /* سكرول أفقي */
+        scroll-snap-type: x mandatory; /* يوقف على كل كارت */
+        -webkit-overflow-scrolling: touch; /* سكرول سلس على آيفون */
+        gap: 20px;
+        padding: 20px 10px;
+    }
+
+    .product-card, .featured-card {
+        min-width: 80%; /* كل كارت ياخد معظم الشاشة */
+        max-width: 80%;
+        scroll-snap-align: start; /* يوقف في البداية */
+        flex-shrink: 0;
+    }
+
+    /* إخفاء الـ scrollbar عشان يبقى رايق */
+    .product-grid::-webkit-scrollbar, .featured-grid::-webkit-scrollbar {
+        display: none;
+    }
+    .product-grid, .featured-grid {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+/* قسم المميز على الكمبيوتر grid */
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    padding: 20px;
+}
+
+/* على الهاتف: carousel أوتوماتيكي + يدوي */
+@media (max-width: 768px) {
+    .featured-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 20px;
+        padding: 20px 10px;
+        scroll-behavior: smooth;
+        animation: auto-scroll 20s linear infinite; /* أوتوماتيكي كل 20 ثانية */
+    }
+
+    .featured-card {
+        min-width: 80%;
+        max-width: 80%;
+        scroll-snap-align: center;
+        flex-shrink: 0;
+    }
+
+    /* إخفاء scrollbar */
+    .featured-grid::-webkit-scrollbar {
+        display: none;
+    }
+    .featured-grid {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    /* حركة أوتوماتيكي (كل 4-5 كروت يتحرك لوحده) */
+    @keyframes auto-scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    /* توقف الحركة الأوتوماتيكي لما تمرر إصبعك (user interaction) */
+    .featured-grid:hover {
+        animation-play-state: paused;
+    }
+}
+
+.auto-carousel {
+    animation: auto-scroll 30s linear infinite; /* 30 ثانية لكل دورة كاملة */
+}
+.auto-carousel:hover {
+    animation-play-state: paused;
+}
+
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+.social-icon img {
+    width: 40px;
+    height: 40px;
+    transition: 0.3s;
+}
+.social-icon:hover img {
+    transform: scale(1.2);
+    filter: brightness(1.2);
+}
+
+.share-btn {
+    background: #ff4081;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+.share-btn:hover {
+    background: #c2185b;
+    transform: scale(1.1);
+}
+
+.reviews {
+    margin-top: 15px;
+    padding: 15px;
+    background: #1e1e1e;
+    border-radius: 15px;
+    text-align: center;
+}
+.stars {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+.rating-text {
+    color: #00ff88;
+    font-weight: bold;
+}
+.review-quote {
+    font-style: italic;
+    color: #bbb;
+    font-size: 14px;
+    margin: 8px 0;
+}

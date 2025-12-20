@@ -59,23 +59,28 @@
     </div>
 
     <script>
-        db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
-            const content = document.getElementById('ticker-content');
-            content.innerHTML = "";
-            if (snapshot.empty) {
-                content.innerHTML = '<span>🔥 مرحبا في لالجيري شوب - مصداقية تامة 🇩🇿</span>';
-                return;
+db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
+    const content = document.getElementById('ticker-content');
+    content.innerHTML = ""; // امسح القديم
+    if (snapshot.empty) {
+        content.innerHTML = '<span>🔥 مرحبا في لالجيري شوب - سرية تامة 🇩🇿</span>';
+    } else {
+        snapshot.forEach(doc => {
+            const t = doc.data();
+            if (t.image) {
+                content.innerHTML += `<span><img src="${t.image}" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;"> ${t.message}</span>`;
+            } else {
+                content.innerHTML += `<span>${t.message}</span>`;
             }
-            snapshot.forEach(doc => {
-                const t = doc.data();
-                if (t.image) {
-                    content.innerHTML += `<span><img src="${t.image}" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;"> ${t.message}</span>`;
-                } else {
-                    content.innerHTML += `<span>${t.message}</span>`;
-                }
-            });
         });
-    </script>
+    }
+
+    // السطرين الجديدين السحريين عشان التحديث يشتغل على الهاتف فورًا
+    content.style.animation = 'none'; // أوقف الحركة لحظة
+    content.offsetHeight; // اجبر المتصفح يعاد رسم العنصر (خدعة رفلو)
+    content.style.animation = null; // رجع الحركة تاني
+});
+</script>
 
     <header>
         <div style="display: flex; align-items: center; gap: 20px;">
@@ -175,18 +180,73 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 لالجيري شوب 🇩🇿 - مصداقية تامة | راحة مضمونة | إغراء و اناقة لا تقاوم</p>
-    </footer>
+    <p>&copy; 2025 لالجيري شوب 🇩🇿 - مصداقية تامة | راحة مضمونة | إغراء لا يُقاوم</p>
+    <div class="social-links" id="social-links">
+        <!-- الأيقونات هتتحمل ديناميكي هنا -->
+        <p style="text-align:center;color:#888;">جاري تحميل الروابط...</p>
+    </div>
+</footer>
 
     <script>
-        let cart = JSON.parse(localStorage.getItem('langeriCart') || '[]');
+    let cart = JSON.parse(localStorage.getItem('langeriCart') || '[]');
 
-        function updateHeader() {
-            const countEl = document.getElementById('cart-count');
-            if (countEl) countEl.textContent = cart.length;
+    function updateHeader() {
+        const countEl = document.getElementById('cart-count');
+        if (countEl) countEl.textContent = cart.length;
+    }
+    updateHeader();
+
+    // تحميل روابط التواصل الاجتماعي ديناميكي (مع تيك توك)
+    db.collection("settings").doc("social").onSnapshot((doc) => {
+        const container = document.getElementById('social-links');
+        container.innerHTML = "";
+        if (!doc.exists) {
+            container.innerHTML = '<p style="text-align:center;color:#ff4081;">ماكانش روابط اجتماعية بعد... أضفها من لوحة التحكم 😈</p>';
+            return;
         }
+        const data = doc.data();
 
-        updateHeader();
-    </script>
+        container.innerHTML = `
+            ${data.facebook ? `<a href="https://facebook.com/${data.facebook}" target="_blank" class="social-icon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="فيسبوك" width="40">
+            </a>` : ''}
+            ${data.instagram ? `<a href="https://instagram.com/${data.instagram}" target="_blank" class="social-icon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="إنستغرام" width="40">
+            </a>` : ''}
+            ${data.tiktok ? `<a href="https://tiktok.com/@${data.tiktok}" target="_blank" class="social-icon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/TikTok_logo.svg" alt="تيك توك" width="40">
+            </a>` : ''}
+            ${data.telegram ? `<a href="https://t.me/${data.telegram}" target="_blank" class="social-icon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="تليجرام" width="40">
+            </a>` : ''}
+        `;
+    });
+</script>
 </body>
+
+<a href="https://wa.me/213662952145?text=مرحبا لالجيري شوب، عايز أطلب..." class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
+    <span>تواصل دلوقتي</span>
+</a>
+
+<style>
+    .whatsapp-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #25D366;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 50px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 18px;
+        z-index: 1000;
+        animation: pulse 2s infinite;
+    }
+    .whatsapp-float img { width: 40px; }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+</style>
 </html>

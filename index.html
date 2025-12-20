@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- SEO + Title جذاب للرئيسية -->
     <title>لالجيري شوب 🇩🇿 | أفضل متجر لانجري وملابس داخلية في الجزائر</title>
-    <meta name="description" content="تسوق لانجري نسائي ورجالي فاخر في الجزائر ✅ مصداقية  تامة ✅ توصيل لـ 58 ولاية ✅ عروض يومية تفشخ ✅ بوكسر رجالي وطقم دانتيل">
+    <meta name="description" content="تسوق لانجري نسائي ورجالي فاخر في الجزائر ✅ مصداقية تامة ✅ توصيل لـ 58 ولاية ✅ عروض يومية تفشخ ✅ بوكسر رجالي وطقم دانتيل">
     <meta name="keywords" content="لانجري الجزائر, ملابس داخلية نسائية, بوكسر رجالي, طقم برا وبانتي, متجر لانجري اونلاين الجزائر, عروض لانجري">
-
     <!-- Open Graph -->
     <meta property="og:title" content="لالجيري شوب 🇩🇿 - متجر اللانجري الأول في الجزائر">
-    <meta property="og:description" content="مصداقية  تامة | جودة فاخرة | توصيل سريع | عروض لا تُقاوم 🔥">
+    <meta property="og:description" content="مصداقية تامة | جودة فاخرة | توصيل سريع | عروض لا تُقاوم 🔥">
     <meta property="og:image" content="https://ikramikramo712-art.github.io/lalgeri-shop/images/main-og.jpg">
     <meta property="og:url" content="https://ikramikramo712-art.github.io/lalgeri-shop/">
     <meta property="og:type" content="website">
-
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5DT4LKCHTQ"></script>
     <script>
@@ -29,9 +25,7 @@
       gtag('js', new Date());
       gtag('config', 'G-5DT4LKCHTQ');
     </script>
-
     <link rel="stylesheet" href="style.css">
-
     <!-- Firebase SDK + Config -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -44,39 +38,47 @@
           messagingSenderId: "181963289442",
           appId: "1:181963289442:web:ae9f6da7c55422fec5723b"
         };
-
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
     </script>
 </head>
 <body>
-
     <!-- التيكر الديناميكي -->
     <div class="ticker" id="ticker-container">
         <div class="ticker-content" id="ticker-content">
             <span>جاري تحميل العروض... 🔥</span>
         </div>
     </div>
-
     <script>
-        db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
-            const content = document.getElementById('ticker-content');
-            content.innerHTML = "";
-            if (snapshot.empty) {
-                content.innerHTML = '<span>🔥 مرحبا في لالجيري شوب - مصداقية  تامة 🇩🇿</span>';
-                return;
-            }
-            snapshot.forEach(doc => {
-                const t = doc.data();
-                if (t.image) {
-                    content.innerHTML += `<span><img src="${t.image}" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;"> ${t.message}</span>`;
+db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
+    const content = document.getElementById('ticker-content');
+    content.innerHTML = "";
+    if (snapshot.empty) {
+        content.innerHTML = '<span>🔥 مرحبا في لالجيري شوب - مصداقية تامة 🇩🇿</span>';
+    } else {
+        snapshot.forEach(doc => {
+            const t = doc.data();
+            let imageHtml = '';
+            if (t.image) {
+                if (t.image.includes('youtube.com') || t.image.includes('youtu.be')) {
+                    const videoId = t.image.includes('watch?v=') ? t.image.split('v=')[1].split('&')[0] : t.image.split('/').pop();
+                    imageHtml = `<img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" width="80" style="vertical-align:middle;margin:0 15px;border-radius:10px;">`;
+                } else if (t.image.includes('tiktok.com')) {
+                    imageHtml = `<img src="https://www.tiktok.com/favicon.ico" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;">`;
+                } else if (t.image.endsWith('.mp4') || t.image.endsWith('.webm')) {
+                    imageHtml = `<span style="font-size:30px;vertical-align:middle;margin:0 15px;">📹</span>`;
                 } else {
-                    content.innerHTML += `<span>${t.message}</span>`;
+                    imageHtml = `<img src="${t.image}" width="80" height="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;object-fit:cover;">`;
                 }
-            });
+            }
+            content.innerHTML += `<span>${imageHtml} ${t.message}</span>`;
         });
-    </script>
-
+    }
+    content.style.animation = 'none';
+    content.offsetHeight;
+    content.style.animation = null;
+});
+</script>
     <!-- الهيدر -->
     <header>
         <div style="display: flex; align-items: center; gap: 20px;">
@@ -85,7 +87,6 @@
         </div>
         <div class="cart">🛒 السلة (<span id="cart-count">0</span>) - المجموع: <span id="cart-total">0</span> دج</div>
     </header>
-
     <!-- الناف -->
     <nav>
         <ul>
@@ -119,16 +120,127 @@
             </a></li>
         </ul>
     </nav>
-
     <!-- قسم الأكثر مبيعًا والمميز -->
     <section class="featured">
-        <h1>🔥 الأكثر مبيعًا والمميز</h1>
-        <p class="section-desc">أفضل المنتجات اللي اختارها زبائننا... جربها وهتدمن عليها 😈</p>
-        <div class="featured-grid" id="featured-container">
-            <p style="text-align:center;color:#888;font-size:20px;padding:50px;">جاري تحميل الأكثر مبيعًا...</p>
+    <h1>🔥 الأكثر مبيعًا والمميز</h1>
+    <p class="section-desc">أفضل المنتجات اللي اختارها زبائننا... جربها وهتدمن عليها 😈</p>
+    <div class="featured-grid auto-carousel" id="featured-container">
+        <!-- المنتجات المميزة هتتحمل هنا ديناميكي من Firebase -->
+        <p style="text-align:center;color:#888;font-size:20px;padding:50px;">جاري تحميل الأكثر مبيعًا...</p>
+    </div>
+    <div class="countdown-timer" id="countdown-timer" style="display:none;">
+        <p>العرض المحدود ينتهي في: <span id="timer">جاري التحميل...</span> 🚨</p>
+    </div>
+    <style>
+        .countdown-timer {
+            text-align: center;
+            background: linear-gradient(45deg, #c2185b, #ff4081);
+            color: white;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 80%;
+            border-radius: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 0 30px rgba(194, 24, 91, 0.8);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @media (max-width: 768px) {
+            .countdown-timer { font-size: 20px; padding: 15px; }
+        }
+    </style>
+    <script>
+        db.collection("settings").doc("countdown").onSnapshot((doc) => {
+            const timerEl = document.getElementById("timer");
+            const countdownDiv = document.getElementById("countdown-timer");
+            if (!doc.exists || !doc.data().endDate) {
+                countdownDiv.style.display = "none";
+                return;
+            }
+            countdownDiv.style.display = "block";
+            const offerEndDate = doc.data().endDate;
+            const timerInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = offerEndDate - now;
+                if (distance < 0) {
+                    timerEl.innerHTML = "العرض انتهى! 🔥";
+                    clearInterval(timerInterval);
+                    return;
+                }
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                timerEl.innerHTML = `${days} يوم : ${hours} ساعة : ${minutes} دقيقة : ${seconds} ثانية`;
+            }, 1000);
+        });
+    </script>
+    <a href="offers.html" class="more-btn">شوف كل العروض والمنتجات</a>
+</section>
+
+    <!-- قسم عرض اليوم الجديد الكبير والبارز -->
+    <section class="daily-offer-section" id="daily-offer-section" style="display:none;">
+        <h1 style="text-align:center;color:#ff1744;font-size:48px;text-shadow:0 0 20px #ff1744;">🔥 عرض اليوم الخاص - فرصة لا تُعوض 🚨</h1>
+        <p style="text-align:center;font-size:24px;color:#ffeb3b;margin-bottom:40px;">سعر مخفض لليوم فقط... اطلبه دلوقتي قبل ما يخلص!</p>
+        <div class="daily-offer-grid" id="daily-offer-container">
+            <!-- عرض اليوم هيظهر هنا ككارت كبير -->
         </div>
-        <a href="offers.html" class="more-btn">شوف كل العروض والمنتجات</a>
     </section>
+
+    <style>
+        .daily-offer-section {
+            background: linear-gradient(45deg, #000, #1e1e1e);
+            padding: 50px 20px;
+            margin: 40px 0;
+            border-radius: 30px;
+            box-shadow: 0 0 40px #ff1744;
+        }
+        .daily-offer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .daily-product-card {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 0 30px #ff1744;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        .daily-product-card img, .daily-product-card iframe {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+        .daily-product-card .old-price {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 28px;
+        }
+        .daily-product-card .new-price {
+            color: #00ff88;
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .daily-product-card img, .daily-product-card iframe {
+                height: 300px;
+            }
+            .daily-product-card .new-price {
+                font-size: 36px;
+            }
+        }
+    </style>
 
     <!-- قسم المنتجات العادية -->
     <section class="products">
@@ -137,25 +249,28 @@
             <p style="text-align:center;color:#888;font-size:20px;padding:50px;">جاري تحميل المنتجات...</p>
         </div>
     </section>
-
     <!-- Lightbox -->
     <div id="lightbox" class="lightbox-overlay">
         <span class="close-lightbox">×</span>
         <img id="lightbox-image" src="" alt="تكبير">
     </div>
-
-    <footer>&copy; 2025 لالجيري شوب 🇩🇿 - مصداقية تامة</footer>
-
+  
+    <footer>
+    <p>&copy; 2025 لالجيري شوب 🇩🇿 - مصداقية تامة | راحة مضمونة | إغراء لا يُقاوم</p>
+    <p style="text-align:center;color:#fff;font-size:18px;margin:10px 0;">تابعنا على:</p>
+    <div class="social-links" id="social-links">
+        <!-- الأيقونات هتتحمل ديناميكي هنا -->
+        <p style="text-align:center;color:#888;">جاري تحميل الروابط...</p>
+    </div>
+</footer>
     <script>
         let cart = JSON.parse(localStorage.getItem('langeriCart') || '[]');
-
         function updateHeader() {
             const count = cart.length;
             const total = cart.reduce((sum, item) => sum + item.price, 0);
             document.getElementById('cart-count').textContent = count;
             document.getElementById('cart-total').textContent = total;
         }
-
         // المنتجات المميزة (6)
         db.collection("products")
           .where("featured", "==", true)
@@ -173,16 +288,64 @@
                   container.innerHTML += `
                       <div class="featured-card">
                           <div class="discount-badge">مميز 🔥</div>
-                          <img src="${p.image}" alt="${p.name}" class="zoomable">
+                          ${p.image.includes('youtube.com') || p.image.includes('youtu.be') || p.image.includes('vimeo.com') || p.image.endsWith('.mp4') ?
+                              `<iframe width="100%" height="300" src="${p.image.includes('watch?v=') ? p.image.replace('watch?v=', 'embed/') : p.image}" frameborder="0" allowfullscreen style="border-radius:15px;"></iframe>` :
+                              `<img src="${p.image}" alt="${p.name}" class="zoomable">`
+                          }
                           <h3>${p.name}</h3>
                           <p class="desc">${p.desc || ''}</p>
                           <p class="price">${p.price} دج</p>
+                          <div class="reviews">
+                              <div class="stars">⭐⭐⭐⭐⭐</div>
+                              <p class="rating-text">(4.9/5) - 89 تقييم</p>
+                              <p class="review-quote">"الجودة تفشخ والسرية 100%... رجعت أطلب تاني!" - زبون سعيد من الجزائر العاصمة</p>
+                              <p class="review-quote">"مريح جدًا ومثير 😍 شكرًا لالجيري!" - زبونة من وهران</p>
+                          </div>
                           <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة 😈</button>
-                      </div>
+                          <button class="share-btn" onclick="shareProduct('${p.name}', ${p.price})">شارك مع صديق 😏</button>
+                        </div>
                   `;
               });
               bindButtons();
           });
+
+        // قسم عرض اليوم الجديد
+        db.collection("settings").doc("dailyOffer").onSnapshot((docSnap) => {
+            const section = document.getElementById("daily-offer-section");
+            const container = document.getElementById("daily-offer-container");
+            if (docSnap.exists) {
+                const data = docSnap.data();
+                db.collection("products").doc(data.productId).get().then((pDoc) => {
+                    if (pDoc.exists) {
+                        const p = pDoc.data();
+                        section.style.display = "block";
+                        container.innerHTML = `
+                            <div class="daily-product-card">
+                                ${p.image.includes('youtube.com') || p.image.includes('youtu.be') || p.image.includes('tiktok.com') || p.image.includes('vimeo.com') || p.image.endsWith('.mp4') || p.image.endsWith('.webm') ?
+                                    `<iframe width="100%" height="400" src="${p.image.includes('watch?v=') ? p.image.replace('watch?v=', 'embed/') : p.image.includes('tiktok.com') ? p.image.replace('tiktok.com', 'www.tiktok.com/embed/v2/') : p.image}" frameborder="0" allowfullscreen style="border-radius:20px;"></iframe>` :
+                                    `<img src="${p.image}" alt="${p.name}" class="zoomable">`
+                                }
+                                <h2 style="font-size:36px;color:#ff1744;margin:20px 0;">${p.name}</h2>
+                                <p style="font-size:24px;">${p.desc || ''}</p>
+                                <p class="old-price">${p.price} دج</p>
+                                <p class="new-price">${data.price} دج</p>
+                                ${p.sizes ? `<p style="color:#ff4081;font-size:22px;">متوفر بمقاسات: ${p.sizes}</p>` : ''}
+                                ${p.colors ? `<p style="color:#00ff88;font-size:22px;">الألوان: ${p.colors}</p>` : ''}
+                                <div class="reviews" style="margin:30px 0;">
+                                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                                    <p class="rating-text">(4.9/5) - تقييمات ممتازة</p>
+                                </div>
+                                <button class="add-to-cart" data-name="${p.name}" data-price="${data.price}" style="padding:20px 40px;font-size:24px;">أضف للسلة دلوقتي 😈</button>
+                                <button class="share-btn" onclick="shareProduct('${p.name}', ${data.price})" style="margin-top:20px;">شارك العرض مع أصحابك 😏</button>
+                            </div>
+                        `;
+                        bindButtons();
+                    }
+                });
+            } else {
+                section.style.display = "none";
+            }
+        });
 
         // المنتجات العادية
         db.collection("products").orderBy("addedAt", "desc").onSnapshot((snapshot) => {
@@ -193,18 +356,27 @@
                 container.innerHTML += `
                     <div class="product-card">
                         ${p.category === 'offers' ? '<div class="discount-badge">خصم 50%</div>' : ''}
-                        <img src="${p.image}" alt="${p.name}" class="zoomable">
+                        ${p.image.includes('youtube.com') || p.image.includes('youtu.be') || p.image.includes('vimeo.com') || p.image.endsWith('.mp4') ?
+                            `<iframe width="100%" height="300" src="${p.image.includes('watch?v=') ? p.image.replace('watch?v=', 'embed/') : p.image}" frameborder="0" allowfullscreen style="border-radius:15px;"></iframe>` :
+                            `<img src="${p.image}" alt="${p.name}" class="zoomable">`
+                        }
                         <h3>${p.name}</h3>
                         <p class="desc">${p.desc || ''}</p>
                         <p class="price">${p.price} دج</p>
+                        ${p.sizes ? `<p style="color:#ff4081;font-weight:bold;">متوفر بمقاسات: ${p.sizes}</p>` : ''}
+                        ${p.colors ? `<p style="color:#00ff88;font-weight:bold;">الألوان: ${p.colors}</p>` : ''}
+                        <div class="reviews">
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                            <p class="rating-text">(4.9/5) - 89 تقييم</p>
+                        </div>
                         <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة 😈</button>
+                        <button class="share-btn" onclick="shareProduct('${p.name}', ${p.price})">شارك مع صديق 😏</button>
                     </div>
                 `;
             });
             bindButtons();
         });
-
-        // دالة ربط الأزرار مرة واحدة (تجنب التكرار)
+        // دالة ربط الأزرار
         function bindButtons() {
             document.querySelectorAll('.add-to-cart').forEach(btn => {
                 btn.onclick = () => {
@@ -214,7 +386,6 @@
                     alert(`أضيف "${btn.dataset.name}" للسلة بنجاح! 😈`);
                 };
             });
-
             document.querySelectorAll('.zoomable').forEach(img => {
                 img.onclick = () => {
                     document.getElementById('lightbox-image').src = img.src;
@@ -222,12 +393,61 @@
                 };
             });
         }
-
         updateHeader();
-
-        // Lightbox close
         document.querySelector('.close-lightbox').onclick = () => document.getElementById('lightbox').style.display = 'none';
         document.getElementById('lightbox').onclick = (e) => { if (e.target.id === 'lightbox') document.getElementById('lightbox').style.display = 'none'; };
+db.collection("settings").doc("social").onSnapshot((doc) => {
+    const container = document.getElementById('social-links');
+    container.innerHTML = "";
+    if (!doc.exists) {
+        container.innerHTML = '<p style="text-align:center;color:#ff4081;">ماكانش روابط اجتماعية بعد... أضفها من لوحة التحكم 😈</p>';
+        return;
+    }
+    const data = doc.data();
+    container.innerHTML = `
+        <a href="https://facebook.com/${data.facebook || 'langeryshopdz'}" target="_blank" class="social-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="فيسبوك" width="40">
+        </a>
+        <a href="https://instagram.com/${data.instagram || 'langeri.shop.dz'}" target="_blank" class="social-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="إنستغرام" width="40">
+        </a>
+        ${data.tiktok ? `<a href="https://tiktok.com/@${data.tiktok}" target="_blank" class="social-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/TikTok_logo.svg" alt="تيك توك" width="40">
+        </a>` : ''}
+        <a href="https://t.me/${data.telegram || 'langerishopdz'}" target="_blank" class="social-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="تليجرام" width="40">
+        </a>
+    `;
+});
+function shareProduct(name, price) {
+    const text = encodeURIComponent(`شوف ده ${name} الرهيب من لالجيري شوب 😈💦\nالسعر: ${price} دج فقط!\nاطلبه دلوقتي: ${window.location.href}`);
+    const messengerUrl = `https://m.me/?text=${text}`;
+    window.open(messengerUrl, '_blank');
+}
     </script>
+<a href="https://wa.me/213662952145?text=مرحبا لالجيري شوب، عايز أطلب..." class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
+    <span>تواصل دلوقتي</span>
+</a>
+<style>
+    .whatsapp-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #25D366;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 50px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 18px;
+        z-index: 1000;
+        animation: pulse 2s infinite;
+    }
+    .whatsapp-float img { width: 40px; }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+</style>
 </body>
 </html>

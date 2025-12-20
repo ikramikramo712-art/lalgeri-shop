@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شكرًا لثقتك - لالجيري شوب 🇩🇿</title>
+    <style>
+        body { background: #000; color: #e0e0e0; text-align: center; padding: 50px; font-family: Arial, sans-serif; }
+        .thankyou { max-width: 800px; margin: 0 auto; background: #1e1e1e; padding: 40px; border-radius: 30px; box-shadow: 0 0 40px #ff4081; }
+        h1 { color: #ff4081; font-size: 48px; }
+        .order-id { font-size: 32px; color: #00ff88; margin: 30px 0; }
+        .items { margin: 40px 0; }
+        .item { background: #333; padding: 20px; margin: 20px; border-radius: 20px; }
+        .note { font-size: 24px; color: #ffeb3b; margin: 40px 0; }
+    </style>
+</head>
+<body>
+    <div class="thankyou">
+        <h1>شكرًا لثقتك فينا 😍</h1>
+        <p class="order-id">رقم طلبك: <span id="order-id"></span></p>
+        <p>تم استلام طلبك بنجاح ✅</p>
+        <div class="items" id="order-items"></div>
+        <p class="note">سنتواصل معك فورًا على الرقم اللي قدمته لتأكيد الطلب والتوصيل 🚚<br>مصداقية تامة - سرية 100%</p>
+        <a href="index.html" style="display:inline-block;padding:20px 40px;background:#c2185b;color:white;border-radius:30px;text-decoration:none;margin-top:30px;">ارجع للتسوق 🔥</a>
+    </div>
+    <script>
+        // جلب البيانات من URL (من cart.html بعد الإرسال)
+        const params = new URLSearchParams(window.location.search);
+        const items = JSON.parse(decodeURIComponent(params.get('items') || '[]'));
+        const total = params.get('total') || '0';
+        const orderId = 'LALGERI-' + Date.now();
+
+        document.getElementById('order-id').textContent = orderId;
+
+        const itemsContainer = document.getElementById('order-items');
+        items.forEach(item => {
+            itemsContainer.innerHTML += `
+                <div class="item">
+                    <h3>${item.name}</h3>
+                    <p>${item.price} دج</p>
+                </div>
+            `;
+        });
+        itemsContainer.innerHTML += `<p style="font-size:28px;color:#00ff88;margin-top:30px;">المجموع: ${total} دج</p>`;
+    </script>
+</body>
+</html>
