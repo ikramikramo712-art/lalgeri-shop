@@ -86,6 +86,8 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             <div class="logo">لالجيري شوب 🇩🇿</div>
         </div>
         <div class="cart">🛒 السلة (<span id="cart-count">0</span>) - المجموع: <span id="cart-total">0</span> دج</div>
+        <!-- همبرجر منيو محسن للموبايل -->
+<div class="hamburger" onclick="toggleMenu()">≡</div>
     </header>
     <!-- الناف -->
     <nav>
@@ -120,6 +122,23 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             </a></li>
         </ul>
     </nav>
+    <!-- منيو موبايل محسن -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay" onclick="toggleMenu()"></div>
+<div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+        <div class="logo">لالجيري شوب 🇩🇿</div>
+        <div class="close-menu" onclick="toggleMenu()">×</div>
+    </div>
+    <ul>
+        <li><a href="index.html" class="active">🏠 الرئيسية</a></li>
+        <li><a href="men.html">👨 رجالي</a></li>
+        <li><a href="women.html">👩 نسائي</a></li>
+        <li><a href="offers.html">🔥 العروض</a></li>
+        <li><a href="contact.html">📞 اتصل بنا</a></li>
+        <li><a href="cart.html">🛒 السلة</a></li>
+        <li><a href="about.html">👀 عن المتجر</a></li>
+    </ul>
+</div>
     <!-- قسم الأكثر مبيعًا والمميز -->
     <section class="featured">
     <h1>🔥 الأكثر مبيعًا والمميز</h1>
@@ -182,7 +201,6 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
     </script>
     <a href="offers.html" class="more-btn">شوف كل العروض والمنتجات</a>
 </section>
-
     <!-- قسم عرض اليوم الجديد الكبير والبارز -->
     <section class="daily-offer-section" id="daily-offer-section" style="display:none;">
         <h1 style="text-align:center;color:#ff1744;font-size:48px;text-shadow:0 0 20px #ff1744;">🔥 عرض اليوم الخاص - فرصة لا تُعوض 🚨</h1>
@@ -191,7 +209,6 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             <!-- عرض اليوم هيظهر هنا ككارت كبير -->
         </div>
     </section>
-
     <style>
         .daily-offer-section {
             background: linear-gradient(45deg, #000, #1e1e1e);
@@ -241,7 +258,6 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             }
         }
     </style>
-
     <!-- قسم المنتجات العادية -->
     <section class="products">
         <h1>كل المنتجات</h1>
@@ -251,10 +267,10 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
     </section>
     <!-- Lightbox -->
     <div id="lightbox" class="lightbox-overlay">
-        <span class="close-lightbox">×</span>
+        <span class="close-lightbox" onclick="closeLightbox()">×</span>
         <img id="lightbox-image" src="" alt="تكبير">
     </div>
-  
+ 
     <footer>
     <p>&copy; 2025 لالجيري شوب 🇩🇿 - مصداقية تامة | راحة مضمونة | إغراء لا يُقاوم</p>
     <p style="text-align:center;color:#fff;font-size:18px;margin:10px 0;">تابعنا على:</p>
@@ -308,7 +324,6 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
               });
               bindButtons();
           });
-
         // قسم عرض اليوم الجديد
         db.collection("settings").doc("dailyOffer").onSnapshot((docSnap) => {
             const section = document.getElementById("daily-offer-section");
@@ -346,7 +361,6 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
                 section.style.display = "none";
             }
         });
-
         // المنتجات العادية
         db.collection("products").orderBy("addedAt", "desc").onSnapshot((snapshot) => {
             const container = document.getElementById("products-container");
@@ -380,7 +394,12 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
         function bindButtons() {
             document.querySelectorAll('.add-to-cart').forEach(btn => {
                 btn.onclick = () => {
-                    cart.push({ name: btn.dataset.name, price: Number(btn.dataset.price) });
+                    cart.push({ 
+    name: btn.dataset.name, 
+    price: Number(btn.dataset.price), 
+    image: btn.closest('.product-card').querySelector('img, iframe').src || 'default-image.jpg',
+    quantity: 1 
+});
                     localStorage.setItem('langeriCart', JSON.stringify(cart));
                     updateHeader();
                     alert(`أضيف "${btn.dataset.name}" للسلة بنجاح! 😈`);
@@ -405,18 +424,18 @@ db.collection("settings").doc("social").onSnapshot((doc) => {
     }
     const data = doc.data();
     container.innerHTML = `
-        <a href="https://facebook.com/${data.facebook || 'langeryshopdz'}" target="_blank" class="social-icon">
+        ${data.facebook ? `<a href="https://facebook.com/${data.facebook}" target="_blank" class="social-icon">
             <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="فيسبوك" width="40">
-        </a>
-        <a href="https://instagram.com/${data.instagram || 'langeri.shop.dz'}" target="_blank" class="social-icon">
+        </a>` : ''}
+        ${data.instagram ? `<a href="https://instagram.com/${data.instagram}" target="_blank" class="social-icon">
             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="إنستغرام" width="40">
-        </a>
+        </a>` : ''}
         ${data.tiktok ? `<a href="https://tiktok.com/@${data.tiktok}" target="_blank" class="social-icon">
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/TikTok_logo.svg" alt="تيك توك" width="40">
         </a>` : ''}
-        <a href="https://t.me/${data.telegram || 'langerishopdz'}" target="_blank" class="social-icon">
+        ${data.telegram ? `<a href="https://t.me/${data.telegram}" target="_blank" class="social-icon">
             <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="تليجرام" width="40">
-        </a>
+        </a>` : ''}
     `;
 });
 function shareProduct(name, price) {
@@ -424,6 +443,17 @@ function shareProduct(name, price) {
     const messengerUrl = `https://m.me/?text=${text}`;
     window.open(messengerUrl, '_blank');
 }
+
+// همبرجر منيو
+function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('active');
+    document.getElementById('mobile-menu-overlay').classList.toggle('active');
+}
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('header')) {
+        document.getElementById('mobile-menu').classList.remove('active');
+    }
+});
     </script>
 <a href="https://wa.me/213662952145?text=مرحبا لالجيري شوب، عايز أطلب..." class="whatsapp-float" target="_blank">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">

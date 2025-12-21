@@ -9,31 +9,28 @@
     <meta name="description" content="تسوق لانجري نسائي ورجالي فاخر في الجزائر ✅ سرية تامة ✅ توصيل لـ 58 ولاية ✅ عروض يومية تفشخ ✅ بوكسر رجالي وطقم دانتيل">
     <meta name="keywords" content="لانجري الجزائر, ملابس داخلية نسائية, بوكسر رجالي, طقم برا وبانتي, متجر لانجري اونلاين الجزائر, عروض لانجري">
 
-    <!-- Open Graph للمشاركة في فيسبوك وواتساب -->
+    <!-- Open Graph -->
     <meta property="og:title" content="لالجيري شوب 🇩🇿 - متجر اللانجري الأول في الجزائر">
     <meta property="og:description" content="سرية تامة | جودة فاخرة | توصيل سريع | عروض لا تُقاوم 🔥">
-    <meta property="og:image" content="https://ikramikramo712-art.github.io/lalgeri-shop/images/og-image.jpg"> <!-- غيرها بصورة حلوة لو رفعتها -->
+    <meta property="og:image" content="https://ikramikramo712-art.github.io/lalgeri-shop/images/og-image.jpg">
     <meta property="og:url" content="https://ikramikramo712-art.github.io/lalgeri-shop/">
     <meta property="og:type" content="website">
 
-    <!-- Favicon (الأيقونة في التبويب) -->
+    <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
 
-    <!-- Google Analytics (غير G-XXXXXXXXXX بالـ ID بتاعك) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5DT4LKCHTQ');"></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5DT4LKCHTQ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', '5DT4LKCHTQ');');
+      gtag('config', 'G-5DT4LKCHTQ');
     </script>
-
-    <!-- Style.css -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Firebase SDK -->
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
@@ -45,190 +42,228 @@
           messagingSenderId: "181963289442",
           appId: "1:181963289442:web:ae9f6da7c55422fec5723b"
         };
-
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
     </script>
 </head>
 <body>
-
     <!-- التيكر الديناميكي -->
     <div class="ticker" id="ticker-container">
         <div class="ticker-content" id="ticker-content">
             <span>جاري تحميل العروض... 🔥</span>
         </div>
     </div>
-
     <script>
 db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
     const content = document.getElementById('ticker-content');
-    content.innerHTML = ""; // امسح القديم
+    content.innerHTML = "";
     if (snapshot.empty) {
         content.innerHTML = '<span>🔥 مرحبا في لالجيري شوب - سرية تامة 🇩🇿</span>';
     } else {
         snapshot.forEach(doc => {
             const t = doc.data();
+            let imageHtml = '';
             if (t.image) {
-                content.innerHTML += `<span><img src="${t.image}" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;"> ${t.message}</span>`;
-            } else {
-                content.innerHTML += `<span>${t.message}</span>`;
+                if (t.image.includes('youtube.com') || t.image.includes('youtu.be')) {
+                    const videoId = t.image.includes('watch?v=') ? t.image.split('v=')[1].split('&')[0] : t.image.split('/').pop();
+                    imageHtml = `<img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" width="80" style="vertical-align:middle;margin:0 15px;border-radius:10px;">`;
+                } else if (t.image.includes('tiktok.com')) {
+                    imageHtml = `<img src="https://www.tiktok.com/favicon.ico" width="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;">`;
+                } else if (t.image.endsWith('.mp4') || t.image.endsWith('.webm')) {
+                    imageHtml = `<span style="font-size:30px;vertical-align:middle;margin:0 15px;">📹</span>`;
+                } else {
+                    imageHtml = `<img src="${t.image}" width="80" height="50" style="vertical-align:middle;margin:0 15px;border-radius:10px;object-fit:cover;">`;
+                }
             }
+            content.innerHTML += `<span>${imageHtml} ${t.message}</span>`;
         });
     }
-
-    // السطرين الجديدين السحريين عشان التحديث يشتغل على الهاتف فورًا
-    content.style.animation = 'none'; // أوقف الحركة لحظة
-    content.offsetHeight; // اجبر المتصفح يعاد رسم العنصر (خدعة رفلو)
-    content.style.animation = null; // رجع الحركة تاني
+    content.style.animation = 'none';
+    content.offsetHeight;
+    content.style.animation = null;
 });
 </script>
-
+    <!-- الهيدر -->
     <header>
         <div style="display: flex; align-items: center; gap: 20px;">
             <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
             <div class="logo">لالجيري شوب 🇩🇿</div>
         </div>
-        <div class="cart">🛒 السلة (<span id="cart-count">0</span>)</div>
+        <div class="cart">🛒 السلة (<span id="cart-count">0</span>) - المجموع: <span id="cart-total">0</span> دج</div>
+    <!-- همبرجر منيو محسن للموبايل -->
+<div class="hamburger" onclick="toggleMenu()">≡</div>
     </header>
-
+    <!-- الناف + منيو موبايل -->
     <nav>
+        <ul>
+            <li><a href="index.html">
+                <span class="icon">🏠</span>
+                الرئيسية
+            </a></li>
+            <li><a href="men.html">
+                <span class="icon">👨</span>
+                رجالي
+            </a></li>
+            <li><a href="women.html">
+                <span class="icon">👩</span>
+                نسائي
+            </a></li>
+            <li><a href="offers.html">
+                <span class="icon">🔥</span>
+                العروض
+            </a></li>
+            <li><a href="contact.html" class="active">
+                <span class="icon">📞</span>
+                اتصل بنا
+            </a></li>
+            <li><a href="cart.html">
+                <span class="icon">🛒</span>
+                السلة
+            </a></li>
+            <li><a href="about.html">
+                <span class="icon">👀</span>
+                عن المتجر
+            </a></li>
+        </ul>
+    </nav>
+    <!-- منيو موبايل محسن -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay" onclick="toggleMenu()"></div>
+<div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+        <div class="logo">لالجيري شوب 🇩🇿</div>
+        <div class="close-menu" onclick="toggleMenu()">×</div>
+    </div>
     <ul>
-        <li><a href="index.html"> 
-            <span class="icon">🏠</span>
-            الرئيسية
-        </a></li>
-        <li><a href="men.html"> 
-            <span class="icon">👨</span>
-            رجالي
-        </a></li>
-        <li><a href="women.html">
-            <span class="icon">👩</span>
-            نسائي
-        </a></li>
-        <li><a href="offers.html">
-            <span class="icon">🔥</span>
-            العروض
-        </a></li>
-        <li><a href="contact.html" class="active">
-            <span class="icon">📞</span>
-            اتصل بنا
-        </a></li>
-        <li><a href="cart.html">
-            <span class="icon">🛒</span>
-            السلة
-        </a></li>
-        <li><a href="about.html">
-            <span class="icon">👀</span>
-            عن المتجر
-        </a></li>
+        <li><a href="index.html">🏠 الرئيسية</a></li>
+        <li><a href="men.html">👨 رجالي</a></li>
+        <li><a href="women.html">👩 نسائي</a></li>
+        <li><a href="offers.html">🔥 العروض</a></li>
+        <li><a href="contact.html" class="active">📞 اتصل بنا</a></li>
+        <li><a href="cart.html">🛒 السلة</a></li>
+        <li><a href="about.html">👀 عن المتجر</a></li>
     </ul>
-</nav>
-
+</div>
     <section class="contact">
-        <h1>تواصل معنا بكل حرية و ثقة 😉</h1>
-        <p class="welcome">نحن هنا للإجابة على كل أسئلتك، اقتراحاتك، أو طلباتك الخاصة... في أي وقت!</p>
-
-        <div class="contact-grid" id="contact-links">
-            <!-- الروابط هتتحمل ديناميكي هنا -->
-            <p style="text-align:center;color:#888;">جاري تحميل وسائل التواصل...</p>
-        </div>
-
-        <div class="info">
-            <p><strong>⏰ ساعات العمل:</strong> 9 صباحًا - 11 مساءً (كل أيام الأسبوع)</p>
-            <p><strong>🚚 التوصيل:</strong> سري وآمن لـ 58 ولاية</p>
-            <p><strong>🔒 الصدق والمصداقية:</strong> طلباتك تبقى امنة... دائمًا</p>
-        </div>
-
-        <!-- نموذج اتصال بسيط -->
-        <div class="contact-form">
-            <h2>أرسل لنا رسالة</h2>
-            <form onsubmit="alert('تم إرسال رسالتك بنجاح! سنرد عليك في أقرب وقت ممكن🙂'); return false;">
-                <input type="text" placeholder="اسمك" required><br><br>
-                <input type="tel" placeholder="رقم هاتفك" required><br><br>
-                <textarea placeholder="رسالتك أو طلبك الخاص..." rows="6" required></textarea><br><br>
-                <button type="submit" class="add-to-cart">إرسال الرسالة</button>
-            </form>
-        </div>
-
-        <!-- خريطة -->
-        <div class="map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.318309158!2d3.0586!3d36.7763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128fb26f9d1f5d6f%3A0x1e3f4c5b6d7e8f9a!2sAlgiers%2C%20Algeria!5e0!3m2!1sen!2sdz!4v1700000000000" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <h1 style="color:#00ff88;">تواصل معنا بكل سرية 📱</h1>
+        <p class="section-desc">مصداقية تامة - سرية 100% - رد فوري</p>
+        <div class="contact-cards" id="contact-cards">
+            <p style="text-align:center;color:#888;font-size:20px;padding:50px;">جاري تحميل وسائل التواصل...</p>
         </div>
     </section>
-
     <footer>
-        <p>&copy; 2025 لالجيري شوب 🇩🇿 - مصداقية تامة | راحة مضمونة | إغراء لا يُقاوم</p>
+        <p>&copy; 2025 لالجيري شوب 🇩🇿 - سرية تامة | راحة مضمونة | إغراء لا يُقاوم</p>
+        <p style="text-align:center;color:#fff;font-size:18px;margin:10px 0;">تابعنا على:</p>
+        <div class="social-links" id="social-links">
+            <p style="text-align:center;color:#888;">جاري تحميل الروابط...</p>
+        </div>
     </footer>
-
-    <!-- السكريبت الموحد للسلة والـ lightbox + تحميل روابط التواصل -->
     <script>
         let cart = JSON.parse(localStorage.getItem('langeriCart') || '[]');
-
         function updateHeader() {
             const count = cart.length;
             const total = cart.reduce((sum, item) => sum + item.price, 0);
-            const countEl = document.getElementById('cart-count');
-            if (countEl) countEl.textContent = count;
+            document.getElementById('cart-count').textContent = count;
+            document.getElementById('cart-total').textContent = total;
         }
-
-        // إضافة منتج للسلة (لو في منتجات في الصفحة)
-        document.querySelectorAll('.add-to-cart').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const name = btn.dataset.name;
-                const price = parseInt(btn.dataset.price);
-                cart.push({ name, price });
-                localStorage.setItem('langeriCart', JSON.stringify(cart));
-                updateHeader();
-                alert(`أضيف "${name}" للسلة بنجاح! ✔️`);
-            });
-        });
-
         updateHeader();
+db.collection("settings").doc("contact").onSnapshot((doc) => {
+    const container = document.getElementById('contact-cards');
+    container.innerHTML = "";
+    if (!doc.exists) {
+        container.innerHTML = '<p style="text-align:center;color:#ff4081;">ماكانش وسائل تواصل بعد... أضفها من لوحة التحكم 😈</p>';
+        return;
+    }
+    const data = doc.data();
+    const whatsapp = data.whatsapp || '213662952145';
+    const messenger = data.messenger || 'langeryshopdz';
+    const telegram = data.telegram || 'langerishopdz';
+    const instagram = data.instagram || 'langeri.shop.dz';
 
-        // تحميل روابط التواصل ديناميكي من Firebase
-        db.collection("settings").doc("contact").onSnapshot((doc) => {
-            const container = document.getElementById('contact-links');
-            container.innerHTML = "";
+    container.innerHTML = `
+        <div class="contact-card">
+            <span class="icon">📱</span>
+            <h3>واتساب</h3>
+            <p>${whatsapp}</p>
+            <a href="https://wa.me/${whatsapp}" target="_blank" class="contact-btn">راسلنا الآن</a>
+        </div>
+        <div class="contact-card">
+            <span class="icon">📘</span>
+            <h3>فيسبوك مسنجر</h3>
+            <p>${messenger}</p>
+            <a href="https://m.me/${messenger}" target="_blank" class="contact-btn">راسلنا</a>
+        </div>
+        <div class="contact-card">
+            <span class="icon">💬</span>
+            <h3>تليجرام</h3>
+            <p>@${telegram}</p>
+            <a href="https://t.me/${telegram}" target="_blank" class="contact-btn">راسلنا</a>
+        </div>
+        <div class="contact-card">
+            <span class="icon">📷</span>
+            <h3>إنستغرام</h3>
+            <p>@${instagram}</p>
+            <a href="https://instagram.com/${instagram}" target="_blank" class="contact-btn">تابعنا</a>
+        </div>
+    `;
+});
+db.collection("settings").doc("social").onSnapshot((doc) => {
+    const container = document.getElementById('social-links');
+    container.innerHTML = "";
+    if (!doc.exists) {
+        container.innerHTML = '<p style="text-align:center;color:#ff4081;">ماكانش روابط اجتماعية بعد... أضفها من لوحة التحكم 😈</p>';
+        return;
+    }
+    const data = doc.data();
+    container.innerHTML = `
+        ${data.facebook ? `<a href="https://facebook.com/${data.facebook}" target="_blank" class="social-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="فيسبوك" width="40">
+        </a>` : ''}
+        ${data.instagram ? `<a href="https://instagram.com/${data.instagram}" target="_blank" class="social-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="إنستغرام" width="40">
+        </a>` : ''}
+        ${data.tiktok ? `<a href="https://tiktok.com/@${data.tiktok}" target="_blank" class="social-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/TikTok_logo.svg" alt="تيك توك" width="40">
+        </a>` : ''}
+        ${data.telegram ? `<a href="https://t.me/${data.telegram}" target="_blank" class="social-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="تليجرام" width="40">
+        </a>` : ''}
+    `;
+});
 
-            if (!doc.exists) {
-                container.innerHTML = '<p style="text-align:center;color:#ff4081;">نعتدر على المنتج... دلك لنفاد الكمية 😅</p>';
-                return;
-            }
-
-            const data = doc.data();
-
-            const whatsapp = data.whatsapp || '213555123456';
-            const messenger = data.messenger || 'langeryshopdz';
-            const telegram = data.telegram || 'langerishopdz';
-            const instagram = data.instagram || 'langeri.shop.dz';
-
-            container.innerHTML = `
-                <div class="contact-card">
-                    <span class="icon">📱</span>
-                    <h3>واتساب</h3>
-                    <p>${whatsapp}</p>
-                    <a href="https://wa.me/${whatsapp}" target="_blank" class="contact-btn">راسلنا الآن</a>
-                </div>
-                <div class="contact-card">
-                    <span class="icon">📘</span>
-                    <h3>فيسبوك مسنجر</h3>
-                    <p>${messenger}</p>
-                    <a href="https://m.me/${messenger}" target="_blank" class="contact-btn">راسلنا</a>
-                </div>
-                <div class="contact-card">
-                    <span class="icon">💬</span>
-                    <h3>تليجرام</h3>
-                    <p>@${telegram}</p>
-                    <a href="https://t.me/${telegram}" target="_blank" class="contact-btn">راسلنا</a>
-                </div>
-                <div class="contact-card">
-                    <span class="icon">📷</span>
-                    <h3>إنستغرام</h3>
-                    <p>@${instagram}</p>
-                    <a href="https://instagram.com/${instagram}" target="_blank" class="contact-btn">تابعنا</a>
-                </div>
-            `;
-        });
+// همبرجر منيو
+function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('active');
+    document.getElementById('mobile-menu-overlay').classList.toggle('active');
+}
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('header')) {
+        document.getElementById('mobile-menu').classList.remove('active');
+    }
+});
     </script>
+<a href="https://wa.me/213662952145?text=مرحبا لالجيري شوب، عايز أطلب..." class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
+    <span>تواصل دلوقتي</span>
+</a>
+<style>
+    .whatsapp-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #25D366;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 50px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 18px;
+        z-index: 1000;
+        animation: pulse 2s infinite;
+    }
+    .whatsapp-float img { width: 40px; }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+</style>
 </body>
 </html>

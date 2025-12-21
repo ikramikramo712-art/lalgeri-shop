@@ -88,41 +88,59 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             <div class="logo">لالجيري شوب 🇩🇿</div>
         </div>
         <div class="cart">🛒 السلة (<span id="cart-count">0</span>)</div>
+    <!-- همبرجر منيو محسن للموبايل -->
+<div class="hamburger" onclick="toggleMenu()">≡</div>
     </header>
-
+    <!-- الناف + منيو موبايل -->
     <nav>
-        <nav>
+        <ul>
+            <li><a href="index.html">
+                <span class="icon">🏠</span>
+                الرئيسية
+            </a></li>
+            <li><a href="men.html">
+                <span class="icon">👨</span>
+                رجالي
+            </a></li>
+            <li><a href="women.html">
+                <span class="icon">👩</span>
+                نسائي
+            </a></li>
+            <li><a href="offers.html">
+                <span class="icon">🔥</span>
+                العروض
+            </a></li>
+            <li><a href="contact.html">
+                <span class="icon">📞</span>
+                اتصل بنا
+            </a></li>
+            <li><a href="cart.html">
+                <span class="icon">🛒</span>
+                السلة
+            </a></li>
+            <li><a href="about.html" class="active">
+                <span class="icon">👀</span>
+                عن المتجر
+            </a></li>
+        </ul>
+    </nav>
+    <!-- منيو موبايل محسن -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay" onclick="toggleMenu()"></div>
+<div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+        <div class="logo">لالجيري شوب 🇩🇿</div>
+        <div class="close-menu" onclick="toggleMenu()">×</div>
+    </div>
     <ul>
-        <li><a href="index.html"> 
-            <span class="icon">🏠</span>
-            الرئيسية
-        </a></li>
-        <li><a href="men.html"> 
-            <span class="icon">👨</span>
-            رجالي
-        </a></li>
-        <li><a href="women.html">
-            <span class="icon">👩</span>
-            نسائي
-        </a></li>
-        <li><a href="offers.html"> 
-            <span class="icon">🔥</span>
-            العروض
-        </a></li>
-        <li><a href="contact.html">
-            <span class="icon">📞</span>
-            اتصل بنا
-        </a></li>
-        <li><a href="cart.html">
-            <span class="icon">🛒</span>
-            السلة
-        </a></li>
-       <li><a href="about.html" class="active">
-            <span class="icon">👀</span>
-            عن المتجر
-        </a></li>
+        <li><a href="index.html">🏠 الرئيسية</a></li>
+        <li><a href="men.html">👨 رجالي</a></li>
+        <li><a href="women.html">👩 نسائي</a></li>
+        <li><a href="offers.html">🔥 العروض</a></li>
+        <li><a href="contact.html">📞 اتصل بنا</a></li>
+        <li><a href="cart.html">🛒 السلة</a></li>
+        <li><a href="about.html" class="active">👀 عن المتجر</a></li>
     </ul>
-</nav>
+</div>
 
     <section class="about">
         <h1>عن لالجيري شوب 🇩🇿</h1>
@@ -221,6 +239,17 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             </a>` : ''}
         `;
     });
+
+// همبرجر منيو
+function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('active');
+    document.getElementById('mobile-menu-overlay').classList.toggle('active');
+}
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('header')) {
+        document.getElementById('mobile-menu').classList.remove('active');
+    }
+});
 </script>
 </body>
 

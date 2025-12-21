@@ -78,8 +78,10 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             <div class="logo">لالجيري شوب 🇩🇿</div>
         </div>
         <div class="cart">🛒 السلة (<span id="cart-count">0</span>) - المجموع: <span id="cart-total">0</span> دج</div>
+    <!-- همبرجر منيو محسن للموبايل -->
+<div class="hamburger" onclick="toggleMenu()">≡</div>
     </header>
-    <!-- الناف -->
+    <!-- الناف + منيو موبايل -->
     <nav>
         <ul>
             <li><a href="index.html">
@@ -112,6 +114,23 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             </a></li>
         </ul>
     </nav>
+    <!-- منيو موبايل محسن -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay" onclick="toggleMenu()"></div>
+<div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+        <div class="logo">لالجيري شوب 🇩🇿</div>
+        <div class="close-menu" onclick="toggleMenu()">×</div>
+    </div>
+    <ul>
+        <li><a href="index.html">🏠 الرئيسية</a></li>
+        <li><a href="men.html" class="active">👨 رجالي</a></li>
+        <li><a href="women.html">👩 نسائي</a></li>
+        <li><a href="offers.html">🔥 العروض</a></li>
+        <li><a href="contact.html">📞 اتصل بنا</a></li>
+        <li><a href="cart.html">🛒 السلة</a></li>
+        <li><a href="about.html">👀 عن المتجر</a></li>
+    </ul>
+</div>
     <section class="products">
         <h1>قسم الرجالي — راحة وثقة يومية 👨</h1>
         <p class="section-desc">أفضل البوكسر القطني، الديباردور، والجوارب... كل قطعة تخليك تشعر بالقوة والراحة 😈</p>
@@ -180,7 +199,12 @@ ${p.colors ? `<p style="color:#00ff88;font-weight:bold;margin:8px 0;">الألو
             // ربط أزرار السلة والـ zoom
             document.querySelectorAll('.add-to-cart').forEach(btn => {
                 btn.onclick = () => {
-                    cart.push({ name: btn.dataset.name, price: Number(btn.dataset.price) });
+                    cart.push({ 
+    name: btn.dataset.name, 
+    price: Number(btn.dataset.price), 
+    image: btn.closest('.product-card').querySelector('img, iframe').src || 'default-image.jpg',
+    quantity: 1 
+});
                     localStorage.setItem('langeriCart', JSON.stringify(cart));
                     updateHeader();
                     alert(`أضيف "${btn.dataset.name}" للسلة بنجاح! المجموع: ${cart.reduce((sum, item) => sum + item.price, 0)} دج 💦`);
@@ -226,6 +250,17 @@ function shareProduct(name, price) {
     const messengerUrl = `https://m.me/?text=${text}`; // يفتح Messenger مباشرة
     window.open(messengerUrl, '_blank');
 }
+
+// همبرجر منيو
+function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('active');
+    document.getElementById('mobile-menu-overlay').classList.toggle('active');
+}
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('header')) {
+        document.getElementById('mobile-menu').classList.remove('active');
+    }
+});
     </script>
 <a href="https://wa.me/213662952145?text=مرحبا لالجيري شوب، عايز أطلب..." class="whatsapp-float" target="_blank">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
