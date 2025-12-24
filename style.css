@@ -1,278 +1,40 @@
-/* style.css - لالجيري شوب 🇩🇿 - Dark Mode متطور ومتجاوب 2025 */
-
-/* Reset وأساسيات */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* style.css - لالجيري شوب 🇩🇿 - Dark Mode مثير 2025 */
 
 body {
-    font-family: 'Arial', 'Tajawal', sans-serif; /* أضفت خط عربي أفضل إذا أردت */
-    background: #000000;
-    color: #e0e0e0;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #000000; /* خلفية سوداء فاخرة */
+    color: #e0e0e0; /* نصوص رمادي فاتح */
     direction: rtl;
     text-align: right;
-    line-height: 1.6;
-}
-
-/* الصور متجاوبة */
-img, iframe {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    border-radius: 12px;
-    object-fit: cover;
-    loading: lazy; /* لتحميل سريع */
 }
 
 /* الهيدر */
 header {
-    background: #0d1a0d;
+    background: #0d1a0d; /* أخضر غامق جدًا */
     color: white;
-    padding: 15px 20px;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 3px solid #c2185b;
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 1001;
 }
 
 .logo {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: bold;
     text-shadow: 0 0 10px #c2185b;
 }
 
 .algeria-flag {
-    width: 70px;
+    width: 80px;
+    height: auto;
     animation: wave 4s infinite linear;
 }
 
-@keyframes wave {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(5deg); }
-    75% { transform: rotate(-5deg); }
-}
-
-/* النافبار */
-nav {
-    background: #1a001a;
-    padding: 10px;
-    text-align: center;
-}
-
-nav ul {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    list-style: none;
-}
-
-nav a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 30px;
-    transition: all 0.3s ease;
-}
-
-nav a:hover, nav a.active {
-    background: #c2185b;
-    box-shadow: 0 0 15px #ff4081;
-}
-
-/* التيكر */
-.ticker {
-    background: linear-gradient(45deg, #c2185b, #ff4081);
-    padding: 12px;
-    overflow: hidden;
-    white-space: nowrap;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    box-shadow: 0 5px 20px rgba(194,24,91,0.6);
-}
-
-.ticker-content span {
-    display: inline-block;
-    animation: ticker 25s linear infinite;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-@keyframes ticker {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-}
-
-/* شبكة المنتجات - متجاوبة 100% */
-.product-grid, .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    padding: 20px;
-}
-
-/* كرت المنتج */
-.product-card, .featured-card {
-    background: #111;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease;
-    text-align: center;
-}
-
-.product-card:hover, .featured-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(194,24,91,0.4);
-}
-
-.product-card img, .featured-card img {
-    height: 300px;
-    object-fit: cover;
-}
-
-.product-card h3, .featured-card h3 {
-    font-size: 22px;
-    margin: 15px 0 10px;
-    color: #ff4081;
-}
-
-.product-card .price {
-    font-size: 24px;
-    font-weight: bold;
-    color: #00ff88;
-    margin-bottom: 15px;
-}
-
-.add-to-cart, .share-btn {
-    background: #c2185b;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s;
-}
-
-.add-to-cart:hover, .share-btn:hover {
-    background: #ff4081;
-}
-
-/* همبرجر منيو للموبايل */
-.hamburger {
-    display: none;
-    font-size: 30px;
-    cursor: pointer;
-    color: white;
-    padding: 10px;
-}
-
-.mobile-menu {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 80%;
-    height: 100%;
-    background: #1a001a;
-    transition: right 0.4s ease;
-    z-index: 1000;
-    overflow-y: auto;
-}
-
-.mobile-menu.active {
-    right: 0;
-}
-
-/* الواتساب فلوت */
-.whatsapp-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #25D366;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 50px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 18px;
-    z-index: 1000;
-    animation: pulse 2s infinite;
-}
-
-.whatsapp-float img {
-    width: 40px;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-/* Media Queries - الجزء الأهم للتوافق */
-@media (max-width: 768px) {
-    header {
-        flex-direction: row;
-        padding: 10px;
-    }
-    .logo {
-        font-size: 26px;
-    }
-    nav ul {
-        display: none; /* اخفِ الناف العادي على الموبايل */
-    }
-    .hamburger {
-        display: block;
-    }
-    .product-grid {
-        grid-template-columns: 1fr; /* عمود واحد على الموبايل */
-        gap: 20px;
-    }
-    .product-card img, .featured-card img {
-        height: 250px;
-    }
-    .ticker-content span {
-        font-size: 16px;
-    }
-    .add-to-cart, .share-btn {
-        font-size: 18px;
-        padding: 15px 30px;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr); /* عمودين على التابلت */
-    }
-}
-
-@media (min-width: 1025px) {
-    .product-grid {
-        grid-template-columns: repeat(4, 1fr); /* 4 أعمدة على الكمبيوتر الكبير */
-    }
-    .product-card img {
-        height: 350px;
-    }
-}
-
-/* إضافات عامة */
-button, .btn {
-    transition: all 0.3s ease;
-}
-
-button:hover {
-    transform: scale(1.05);
-}
 @keyframes wave {
     0% { transform: rotate(0deg); }
     25% { transform: rotate(5deg); }
@@ -364,7 +126,7 @@ nav a:hover, nav a.active {
     box-shadow: 0 0 15px #ff4081;
 }
 
-/* التيكر - فوق ثابت، يتوقف عند hover/touch */
+/* التيكر - تصحيح كامل ومتجاوب بدون أي بوزان */
 .ticker {
     background: linear-gradient(45deg, #c2185b, #ff4081);
     padding: 15px;
@@ -374,26 +136,63 @@ nav a:hover, nav a.active {
     position: sticky;
     top: 0;
     z-index: 999;
+    width: 100%;
 }
 
 .ticker-content {
     display: inline-block;
-    animation: scroll 40s linear infinite;
+    animation: scroll-left 120s linear infinite;
+    white-space: nowrap;
 }
 
-.ticker-content span {
-    font-size: 20px;
-    margin: 0 40px;
+.ticker-content > * {
+    display: inline-block;
+    margin-left: 60px;
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
 }
 
-@keyframes scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+.ticker-content img {
+    height: 45px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-/* توقف الحركة عند hover أو touch */
-.ticker:hover .ticker-content, .ticker:active .ticker-content {
+.ticker-content iframe {
+    width: 250px;
+    height: 45px;
+    border: none;
+    border-radius: 10px;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.ticker:hover .ticker-content {
     animation-play-state: paused;
+}
+
+/* على الموبايل */
+@media (max-width: 768px) {
+    .ticker-content > * {
+        margin-left: 30px;
+        font-size: 16px;
+    }
+    .ticker-content img {
+        height: 35px;
+    }
+    .ticker-content iframe {
+        width: 180px;
+        height: 35px;
+    }
 }
 
 /* الأقسام العامة */
@@ -856,5 +655,299 @@ footer {
     .hamburger {
         display: block;
     }
+}
 
+/* الهيدر الأنيق الجديد */
+.header-modern {
+    background: linear-gradient(135deg, #0d1a0d, #000000);
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid #c2185b;
+    box-shadow: 0 8px 30px rgba(194, 24, 91, 0.5);
+    position: relative;
+    z-index: 1001;
+    backdrop-filter: blur(10px);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.algeria-flag {
+    width: 90px;
+    height: auto;
+    animation: wave 5s infinite linear;
+    filter: drop-shadow(0 0 10px #ff4081);
+}
+
+./* اللوجو (التايتل) - كبير على الكمبيوتر، صغير على الهاتف */
+.logo {
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff4081, #c2185b, #ff1744);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(255, 64, 129, 0.8);
+    letter-spacing: 2px; /* مسافات بين الحروف عشان يبقى طويل وأنيق */
+    white-space: nowrap;
+}
+
+/* على الكمبيوتر: كبير وبارز */
+@media (min-width: 769px) {
+    .logo {
+        font-size: 48px; /* كبير تفشخ */
+    }
+}
+
+/* على الهاتف: صغير ومريح */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 32px; /* صغير عشان الشاشة */
+    }
+}
+
+/* تأثير حركة أسطوري للتايتل */
+.logo {
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff4081, #c2185b, #ff1744, #ff4081);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 3px;
+    white-space: nowrap;
+    animation: glow-pulse 4s ease-in-out infinite, slide-gradient 8s linear infinite;
+}
+
+/* حركة glow و pulse */
+@keyframes glow-pulse {
+    0%, 100% {
+        text-shadow: 0 0 20px rgba(255, 64, 129, 0.8);
+        transform: scale(1);
+    }
+    50% {
+        text-shadow: 0 0 40px rgba(255, 64, 129, 1), 0 0 60px rgba(194, 24, 91, 0.8);
+        transform: scale(1.05);
+    }
+}
+
+/* حركة gradient متحرك (يخلي اللون يجري) */
+@keyframes slide-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* على الهاتف: حركة أقل عشان ما تلهيش */
+@media (max-width: 768px) {
+    .logo {
+        animation: glow-pulse 6s ease-in-out infinite; /* بس pulse بطيء بدون slide */
+        letter-spacing: 1px;
+    }
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.cart-btn {
+    background: rgba(194, 24, 91, 0.3);
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 22px;
+    font-weight: bold;
+    box-shadow: 0 0 20px rgba(194, 24, 91, 0.6);
+    transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.cart-btn:hover {
+    background: rgba(194, 24, 91, 0.6);
+    transform: scale(1.05);
+}
+
+.cart-total-text {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+/* تحسين wave للعلم */
+@keyframes wave {
+    0% { transform: rotate(0deg); }
+    20% { transform: rotate(8deg); }
+    40% { transform: rotate(-6deg); }
+    60% { transform: rotate(5deg); }
+    80% { transform: rotate(-4deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Responsive للموبايل */
+@media (max-width: 768px) {
+    .header-modern {
+        padding: 15px 20px;
+    }
+    .logo {
+        font-size: 32px;
+    }
+    .algeria-flag {
+        width: 70px;
+    }
+    .cart-btn {
+        padding: 12px 20px;
+        font-size: 18px;
+    }
+    .cart-total-text {
+        display: none; /* نخفي "المجموع" على الموبايل عشان المساحة */
+    }
+}
+
+/* تنبيه أنيق لإضافة للسلة */
+.toast-notification {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: linear-gradient(45deg, #c2185b, #ff4081);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(194, 24, 91, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 2000;
+    max-width: 350px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.5s ease;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast-notification img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.toast-close {
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+/* على الموبايل */
+@media (max-width: 768px) {
+    .toast-notification {
+        top: 80px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+
+/* جعل زر السلة clickable وأنيق */
+.cart-btn {
+    background: rgba(194, 24, 91, 0.3);
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 22px;
+    font-weight: bold;
+    box-shadow: 0 0 20px rgba(194, 24, 91, 0.6);
+    transition: 0.3s;
+    backdrop-filter: blur(5px);
+    text-decoration: none; /* مهم عشان الـ a */
+    color: white; /* لون النص */
+    display: inline-block;
+}
+
+.cart-btn:hover {
+    background: rgba(194, 24, 91, 0.6);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* على الموبايل */
+@media (max-width: 768px) {
+    .cart-btn {
+        padding: 12px 20px;
+        font-size: 18px;
+    }
+    .cart-total-text {
+        display: none; /* نخفي "المجموع" على الموبايل عشان المساحة */
+    }
+}
+
+/* الهيدر مع صورتين يسار ويمين */
+.header-modern {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #0d1a0d, #000000);
+    border-bottom: 4px solid #c2185b;
+    box-shadow: 0 8px 30px rgba(194, 24, 91, 0.5);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* المسافة بين الصور واللوجو */
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.header-left-image {
+    width: 90px; /* حجم الصورة اليسار */
+    height: auto;
+    animation: wave 5s infinite linear;
+    filter: drop-shadow(0 0 10px #ff4081);
+}
+
+.header-right-image {
+    width: 90px; /* حجم العلم (يمين) */
+    height: auto;
+    animation: wave 5s infinite linear;
+    filter: drop-shadow(0 0 10px #ff4081);
+}
+
+.logo {
+    font-size: 42px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff4081, #c2185b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 64, 129, 0.6);
+}
+
+/* على الموبايل: الصور أصغر واللوجو في الوسط */
+@media (max-width: 768px) {
+    .header-content {
+        gap: 10px;
+    }
+    .header-left-image, .header-right-image {
+        width: 60px;
+    }
+    .logo {
+        font-size: 32px;
+    }
+    .cart-btn {
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+    .cart-total-text {
+        display: none;
+    }
 }

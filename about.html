@@ -82,15 +82,21 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
 });
 </script>
 
-    <header>
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
-            <div class="logo">لالجيري شوب 🇩🇿</div>
+     <!-- الهيدر الأنيق الجديد -->
+<header class="header-modern">
+   <div class="header-left">
+    <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
+    <div class="logo">لالجيري شوب 🇩🇿</div>
+</div>
+    <div class="header-right">
+        <div class="cart-btn">
+            🛒 السلة (<span id="cart-count">0</span>) 
+            <span class="cart-total-text"> - المجموع: <span id="cart-total">0</span> دج</span>
         </div>
-        <div class="cart">🛒 السلة (<span id="cart-count">0</span>)</div>
-    <!-- همبرجر منيو محسن للموبايل -->
-<div class="hamburger" onclick="toggleMenu()">≡</div>
-    </header>
+        <!-- همبرجر منيو للموبايل -->
+        <div class="hamburger" onclick="toggleMenu()">≡</div>
+    </div>
+</header>
     <!-- الناف + منيو موبايل -->
     <nav>
         <ul>

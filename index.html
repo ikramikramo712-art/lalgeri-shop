@@ -79,16 +79,22 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
     content.style.animation = null;
 });
 </script>
-    <!-- الهيدر -->
-    <header>
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
-            <div class="logo">لالجيري شوب 🇩🇿</div>
-        </div>
-        <div class="cart">🛒 السلة (<span id="cart-count">0</span>) - المجموع: <span id="cart-total">0</span> دج</div>
-        <!-- همبرجر منيو محسن للموبايل -->
-<div class="hamburger" onclick="toggleMenu()">≡</div>
-    </header>
+    <!-- الهيدر الأنيق الجديد -->
+<header class="header-modern">
+   <div class="header-left">
+    <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
+    <div class="logo">لالجيري شوب 🇩🇿</div>
+</div>
+    <div class="header-right">
+    <!-- زر السلة يشتغل دلوقتي (يروح لصفحة السلة لما تضغط) -->
+    <a href="cart.html" class="cart-btn">
+        🛒 السلة (<span id="cart-count">0</span>)
+        <span class="cart-total-text"> - المجموع: <span id="cart-total">0</span> دج</span>
+    </a>
+    <!-- همبرجر منيو للموبايل -->
+    <div class="hamburger" onclick="toggleMenu()">≡</div>
+</div>
+</header>
     <!-- الناف -->
     <nav>
         <ul>
@@ -270,7 +276,6 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
         <span class="close-lightbox" onclick="closeLightbox()">×</span>
         <img id="lightbox-image" src="" alt="تكبير">
     </div>
- 
     <footer>
     <p>&copy; 2025 لالجيري شوب 🇩🇿 - مصداقية تامة | راحة مضمونة | إغراء لا يُقاوم</p>
     <p style="text-align:center;color:#fff;font-size:18px;margin:10px 0;">تابعنا على:</p>
@@ -279,6 +284,33 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
         <p style="text-align:center;color:#888;">جاري تحميل الروابط...</p>
     </div>
 </footer>
+    <!-- WhatsApp Float ديناميكي من Firebase -->
+    <a id="whatsapp-float-link" class="whatsapp-float" target="_blank" style="display:flex;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
+        <span>تواصل دلوقتي</span>
+    </a>
+
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        .whatsapp-float img { width: 40px; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    </style>
+
     <script>
         let cart = JSON.parse(localStorage.getItem('langeriCart') || '[]');
         function updateHeader() {
@@ -286,6 +318,31 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             const total = cart.reduce((sum, item) => sum + item.price, 0);
             document.getElementById('cart-count').textContent = count;
             document.getElementById('cart-total').textContent = total;
+        }
+        // دالة ربط الأزرار (محسنة عشان تشمل كل الأقسام وتضيف الصورة)
+        function bindButtons() {
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.onclick = () => {
+                    // جيب الصورة من الكارت الأب (أول img أو iframe)
+                    const card = btn.closest('.featured-card, .daily-product-card, .product-card');
+                    const imageSrc = card.querySelector('img, iframe').src || 'images/default.jpg';
+                    const item = {
+                        name: btn.dataset.name,
+                        price: Number(btn.dataset.price),
+                        image: imageSrc,
+                        quantity: 1
+                    };
+                    cart.push(item);
+                    localStorage.setItem('langeriCart', JSON.stringify(cart));
+                    updateHeader();
+                    updateCartDisplay(); // لو في صفحة السلة
+                    alert(`أضيف "${item.name}" للسلة بنجاح! 👍`);
+                };
+            });
+            // تكبير الصور
+            document.querySelectorAll('.zoomable').forEach(img => {
+                img.onclick = () => openLightbox(img.src);
+            });
         }
         // المنتجات المميزة (6)
         db.collection("products")
@@ -317,7 +374,7 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
                               <p class="review-quote">"الجودة تفشخ والسرية 100%... رجعت أطلب تاني!" - زبون سعيد من الجزائر العاصمة</p>
                               <p class="review-quote">"مريح جدًا ومثير 😍 شكرًا لالجيري!" - زبونة من وهران</p>
                           </div>
-                          <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة 😈</button>
+                          <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة 👍</button>
                           <button class="share-btn" onclick="shareProduct('${p.name}', ${p.price})">شارك مع صديق 😏</button>
                         </div>
                   `;
@@ -350,7 +407,7 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
                                     <div class="stars">⭐⭐⭐⭐⭐</div>
                                     <p class="rating-text">(4.9/5) - تقييمات ممتازة</p>
                                 </div>
-                                <button class="add-to-cart" data-name="${p.name}" data-price="${data.price}" style="padding:20px 40px;font-size:24px;">أضف للسلة دلوقتي 😈</button>
+                                <button class="add-to-cart" data-name="${p.name}" data-price="${data.price}" style="padding:20px 40px;font-size:24px;">أضف للسلة الان 👍</button>
                                 <button class="share-btn" onclick="shareProduct('${p.name}', ${data.price})" style="margin-top:20px;">شارك العرض مع أصحابك 😏</button>
                             </div>
                         `;
@@ -383,35 +440,13 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
                             <div class="stars">⭐⭐⭐⭐⭐</div>
                             <p class="rating-text">(4.9/5) - 89 تقييم</p>
                         </div>
-                        <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة 😈</button>
+                        <button class="add-to-cart" data-name="${p.name}" data-price="${p.price}">أضف للسلة 👍</button>
                         <button class="share-btn" onclick="shareProduct('${p.name}', ${p.price})">شارك مع صديق 😏</button>
                     </div>
                 `;
             });
             bindButtons();
         });
-        // دالة ربط الأزرار
-        function bindButtons() {
-            document.querySelectorAll('.add-to-cart').forEach(btn => {
-                btn.onclick = () => {
-                    cart.push({ 
-    name: btn.dataset.name, 
-    price: Number(btn.dataset.price), 
-    image: btn.closest('.product-card').querySelector('img, iframe').src || 'default-image.jpg',
-    quantity: 1 
-});
-                    localStorage.setItem('langeriCart', JSON.stringify(cart));
-                    updateHeader();
-                    alert(`أضيف "${btn.dataset.name}" للسلة بنجاح! 😈`);
-                };
-            });
-            document.querySelectorAll('.zoomable').forEach(img => {
-                img.onclick = () => {
-                    document.getElementById('lightbox-image').src = img.src;
-                    document.getElementById('lightbox').style.display = 'flex';
-                };
-            });
-        }
         updateHeader();
         document.querySelector('.close-lightbox').onclick = () => document.getElementById('lightbox').style.display = 'none';
         document.getElementById('lightbox').onclick = (e) => { if (e.target.id === 'lightbox') document.getElementById('lightbox').style.display = 'none'; };
@@ -439,11 +474,10 @@ db.collection("settings").doc("social").onSnapshot((doc) => {
     `;
 });
 function shareProduct(name, price) {
-    const text = encodeURIComponent(`شوف ده ${name} الرهيب من لالجيري شوب 😈💦\nالسعر: ${price} دج فقط!\nاطلبه دلوقتي: ${window.location.href}`);
+    const text = encodeURIComponent(`شوف ده ${name} الرهيب من لالجيري شوب 👍💦\nالسعر: ${price} دج فقط!\nاطلبه دلوقتي: ${window.location.href}`);
     const messengerUrl = `https://m.me/?text=${text}`;
     window.open(messengerUrl, '_blank');
 }
-
 // همبرجر منيو
 function toggleMenu() {
     document.getElementById('mobile-menu').classList.toggle('active');
@@ -452,32 +486,30 @@ function toggleMenu() {
 document.addEventListener('click', (e) => {
     if (!e.target.closest('header')) {
         document.getElementById('mobile-menu').classList.remove('active');
+        document.getElementById('mobile-menu-overlay').classList.remove('active');
+    }
+});
+
+// ★ كود الـ WhatsApp Float الديناميكي (مضاف بالكامل) ★
+db.collection("settings").doc("contact").onSnapshot((doc) => {
+    if (doc.exists) {
+        const data = doc.data();
+
+        const floatLink = document.getElementById('whatsapp-float-link');
+        if (!floatLink) return;
+
+        // إظهار أو إخفاء الزر
+        const showFloat = data.showWhatsappFloat !== false; // true افتراضي
+        floatLink.style.display = showFloat ? 'flex' : 'none';
+
+        // تحديث الرقم والنص
+        if (data.whatsappFloatNumber) {
+            const number = data.whatsappFloatNumber;
+            const text = data.whatsappFloatText || 'مرحبا لالجيري شوب، عايز أطلب...';
+            floatLink.href = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+        }
     }
 });
     </script>
-<a href="https://wa.me/213662952145?text=مرحبا لالجيري شوب، عايز أطلب..." class="whatsapp-float" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
-    <span>تواصل دلوقتي</span>
-</a>
-<style>
-    .whatsapp-float {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #25D366;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 50px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 18px;
-        z-index: 1000;
-        animation: pulse 2s infinite;
-    }
-    .whatsapp-float img { width: 40px; }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-</style>
 </body>
 </html>

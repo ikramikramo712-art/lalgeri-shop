@@ -79,16 +79,22 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
     content.style.animation = null;
 });
 </script>
-    <!-- الهيدر -->
-    <header>
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
-            <div class="logo">لالجيري شوب 🇩🇿</div>
-        </div>
-        <div class="cart">🛒 السلة (<span id="cart-count">0</span>) - المجموع: <span id="cart-total">0</span> دج</div>
-    <!-- همبرجر منيو محسن للموبايل -->
-<div class="hamburger" onclick="toggleMenu()">≡</div>
-    </header>
+    <!-- الهيدر الأنيق الجديد -->
+<header class="header-modern">
+   <div class="header-left">
+    <img src="https://www.wilaya-tlemcen.dz/W13-Ar/Images/logo1.gif" alt="علم الجزائر" class="algeria-flag">
+    <div class="logo">لالجيري شوب 🇩🇿</div>
+</div>
+    <div class="header-right">
+    <!-- زر السلة يشتغل دلوقتي (يروح لصفحة السلة لما تضغط) -->
+    <a href="cart.html" class="cart-btn">
+        🛒 السلة (<span id="cart-count">0</span>)
+        <span class="cart-total-text"> - المجموع: <span id="cart-total">0</span> دج</span>
+    </a>
+    <!-- همبرجر منيو للموبايل -->
+    <div class="hamburger" onclick="toggleMenu()">≡</div>
+</div>
+</header>
     <!-- الناف + منيو موبايل -->
     <nav>
         <ul>
@@ -130,10 +136,10 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
         <div class="close-menu" onclick="toggleMenu()">×</div>
     </div>
     <ul>
-        <li><a href="index.html" class="active">🏠 الرئيسية</a></li>
+        <li><a href="index.html">🏠 الرئيسية</a></li>
         <li><a href="men.html">👨 رجالي</a></li>
         <li><a href="women.html">👩 نسائي</a></li>
-        <li><a href="offers.html">🔥 العروض</a></li>
+        <li><a href="offers.html" class="active">🔥 العروض</a></li>
         <li><a href="contact.html">📞 اتصل بنا</a></li>
         <li><a href="cart.html">🛒 السلة</a></li>
         <li><a href="about.html">👀 عن المتجر</a></li>
@@ -210,6 +216,34 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
         <p style="text-align:center;color:#888;">جاري تحميل الروابط...</p>
     </div>
 </footer>
+
+    <!-- WhatsApp Float ديناميكي من Firebase (مع التحكم الكامل) -->
+    <a id="whatsapp-float-link" class="whatsapp-float" target="_blank" style="display:flex;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
+        <span>تواصل دلوقتي</span>
+    </a>
+
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        .whatsapp-float img { width: 40px; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    </style>
+
     <script>
         let cart = JSON.parse(localStorage.getItem('langeriCart') || '[]');
         function updateHeader() {
@@ -218,7 +252,6 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             document.getElementById('cart-count').textContent = count;
             document.getElementById('cart-total').textContent = total;
         }
-
         // تحميل عرض اليوم مستمر
         let dailyOffer = null;
         db.collection("settings").doc("dailyOffer").onSnapshot((docSnap) => {
@@ -229,7 +262,6 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
             }
             loadOffers(); // نحدث المنتجات فور تغيير العرض
         });
-
         function loadOffers() {
             db.collection("products").orderBy("addedAt", "desc").onSnapshot((snapshot) => {
                 const container = document.getElementById("products-container");
@@ -243,8 +275,8 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
                         container.innerHTML += `
                             <div class="product-card">
                                 <div class="discount-badge">خصم 50%</div>
-                                ${dailyOffer && productId === dailyOffer.productId ? 
-                                    `<div class="discount-badge" style="background:#ff1744; animation: pulse 2s infinite;">عرض اليوم فقط! ${dailyOffer.price} دج</div>` : 
+                                ${dailyOffer && productId === dailyOffer.productId ?
+                                    `<div class="discount-badge" style="background:#ff1744; animation: pulse 2s infinite;">عرض اليوم فقط! ${dailyOffer.price} دج</div>` :
                                     ''
                                 }
                                 ${p.image.includes('youtube.com') || p.image.includes('youtu.be') || p.image.includes('tiktok.com') || p.image.includes('vimeo.com') || p.image.endsWith('.mp4') || p.image.endsWith('.webm') ?
@@ -271,12 +303,14 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
                 }
                 document.querySelectorAll('.add-to-cart').forEach(btn => {
                     btn.onclick = () => {
-                        cart.push({ 
-    name: btn.dataset.name, 
-    price: Number(btn.dataset.price), 
-    image: btn.closest('.product-card').querySelector('img, iframe').src || 'default-image.jpg',
-    quantity: 1 
-});
+                        const card = btn.closest('.product-card');
+                        const imageSrc = card.querySelector('img, iframe').src || 'images/default.jpg';
+                        cart.push({
+                            name: btn.dataset.name,
+                            price: Number(btn.dataset.price),
+                            image: imageSrc,
+                            quantity: 1
+                        });
                         localStorage.setItem('langeriCart', JSON.stringify(cart));
                         updateHeader();
                         alert(`أضيف "${btn.dataset.name}" للسلة بنجاح! المجموع: ${cart.reduce((sum, item) => sum + item.price, 0)} دج 💦`);
@@ -290,75 +324,74 @@ db.collection("ticker").orderBy("addedAt", "asc").onSnapshot((snapshot) => {
                 });
             });
         }
-
         loadOffers();
-
         updateHeader();
         document.querySelector('.close-lightbox').onclick = () => document.getElementById('lightbox').style.display = 'none';
         document.getElementById('lightbox').onclick = (e) => { if (e.target.id === 'lightbox') document.getElementById('lightbox').style.display = 'none'; };
-db.collection("settings").doc("social").onSnapshot((doc) => {
-    const container = document.getElementById('social-links');
-    container.innerHTML = "";
-    if (!doc.exists) {
-        container.innerHTML = '<p style="text-align:center;color:#ff4081;">ماكانش روابط اجتماعية بعد... أضفها من لوحة التحكم 😈</p>';
-        return;
-    }
-    const data = doc.data();
-    container.innerHTML = `
-        ${data.facebook ? `<a href="https://facebook.com/${data.facebook}" target="_blank" class="social-icon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="فيسبوك" width="40">
-        </a>` : ''}
-        ${data.instagram ? `<a href="https://instagram.com/${data.instagram}" target="_blank" class="social-icon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="إنستغرام" width="40">
-        </a>` : ''}
-        ${data.tiktok ? `<a href="https://tiktok.com/@${data.tiktok}" target="_blank" class="social-icon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/TikTok_logo.svg" alt="تيك توك" width="40">
-        </a>` : ''}
-        ${data.telegram ? `<a href="https://t.me/${data.telegram}" target="_blank" class="social-icon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="تليجرام" width="40">
-        </a>` : ''}
-    `;
-});
-function shareProduct(name, price) {
-    const text = encodeURIComponent(`شوف ده ${name} الرهيب من لالجيري شوب 😈💦\nالسعر: ${price} دج فقط!\nاطلبه دلوقتي: ${window.location.href}`);
-    const messengerUrl = `https://m.me/?text=${text}`;
-    window.open(messengerUrl, '_blank');
-}
 
-// همبرجر منيو
-function toggleMenu() {
-    document.getElementById('mobile-menu').classList.toggle('active');
-    document.getElementById('mobile-menu-overlay').classList.toggle('active');
-}
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('header')) {
-        document.getElementById('mobile-menu').classList.remove('active');
-    }
-});
+        // تحميل روابط التواصل الاجتماعي ديناميكي
+        db.collection("settings").doc("social").onSnapshot((doc) => {
+            const container = document.getElementById('social-links');
+            container.innerHTML = "";
+            if (!doc.exists) {
+                container.innerHTML = '<p style="text-align:center;color:#ff4081;">ماكانش روابط اجتماعية بعد... أضفها من لوحة التحكم 😈</p>';
+                return;
+            }
+            const data = doc.data();
+            container.innerHTML = `
+                ${data.facebook ? `<a href="https://facebook.com/${data.facebook}" target="_blank" class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="فيسبوك" width="40">
+                </a>` : ''}
+                ${data.instagram ? `<a href="https://instagram.com/${data.instagram}" target="_blank" class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="إنستغرام" width="40">
+                </a>` : ''}
+                ${data.tiktok ? `<a href="https://tiktok.com/@${data.tiktok}" target="_blank" class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/TikTok_logo.svg" alt="تيك توك" width="40">
+                </a>` : ''}
+                ${data.telegram ? `<a href="https://t.me/${data.telegram}" target="_blank" class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="تليجرام" width="40">
+                </a>` : ''}
+            `;
+        });
+
+        function shareProduct(name, price) {
+            const text = encodeURIComponent(`شوف ده ${name} الرهيب من لالجيري شوب 😈💦\nالسعر: ${price} دج فقط!\nاطلبه دلوقتي: ${window.location.href}`);
+            const messengerUrl = `https://m.me/?text=${text}`;
+            window.open(messengerUrl, '_blank');
+        }
+
+        // همبرجر منيو
+        function toggleMenu() {
+            document.getElementById('mobile-menu').classList.toggle('active');
+            document.getElementById('mobile-menu-overlay').classList.toggle('active');
+        }
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('header')) {
+                document.getElementById('mobile-menu').classList.remove('active');
+                document.getElementById('mobile-menu-overlay').classList.remove('active');
+            }
+        });
+
+        // ★ كود الـ WhatsApp Float الديناميكي (رقم + نص + إخفاء/إظهار من Firebase) ★
+        db.collection("settings").doc("contact").onSnapshot((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+
+                const floatLink = document.getElementById('whatsapp-float-link');
+                if (!floatLink) return;
+
+                // إظهار أو إخفاء الزر
+                const showFloat = data.showWhatsappFloat !== false; // true افتراضي
+                floatLink.style.display = showFloat ? 'flex' : 'none';
+
+                // تحديث الرقم والنص
+                if (data.whatsappFloatNumber) {
+                    const number = data.whatsappFloatNumber;
+                    const text = data.whatsappFloatText || 'مرحبا لالجيري شوب، عايز أطلب...';
+                    floatLink.href = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+                }
+            }
+        });
     </script>
-<a href="https://wa.me/213662952145?text=مرحبا لالجيري شوب، عايز أطلب..." class="whatsapp-float" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
-    <span>تواصل دلوقتي</span>
-</a>
-<style>
-    .whatsapp-float {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #25D366;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 50px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 18px;
-        z-index: 1000;
-        animation: pulse 2s infinite;
-    }
-    .whatsapp-float img { width: 40px; }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-</style>
 </body>
 </html>
