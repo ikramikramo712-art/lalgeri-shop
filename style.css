@@ -1,4 +1,4 @@
-/* style.css - لالجيري شوب 🇩🇿 - Dark Mode متطور ومتجاوب 100% 2025 */
+/* style.css - لالجيري شوب 🇩🇿 - Dark Mode متطور ومتجاوب 2025 */
 
 * {
     box-sizing: border-box;
@@ -8,6 +8,8 @@
 
 body {
     font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
     background: #000000;
     color: #e0e0e0;
     direction: rtl;
@@ -15,22 +17,23 @@ body {
     line-height: 1.6;
 }
 
-img, iframe {
+/* صور وفيديوهات متجاوبة تلقائياً */
+img, iframe, video {
     max-width: 100%;
     height: auto;
     display: block;
     border-radius: 15px;
 }
 
-/* الهيدر الرئيسي */
+/* الهيدر */
 header {
-    background: linear-gradient(135deg, #0d1a0d, #000000);
+    background: #0d1a0d;
+    color: white;
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 4px solid #c2185b;
-    box-shadow: 0 8px 30px rgba(194, 24, 91, 0.5);
+    border-bottom: 3px solid #c2185b;
     position: sticky;
     top: 0;
     z-index: 1001;
@@ -38,60 +41,45 @@ header {
 }
 
 .logo {
-    font-size: 42px;
+    font-size: 36px;
     font-weight: bold;
-    background: linear-gradient(45deg, #ff4081, #c2185b, #ff1744);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 20px rgba(255, 64, 129, 0.8);
-    letter-spacing: 2px;
+    text-shadow: 0 0 10px #c2185b;
 }
 
 .algeria-flag {
-    width: 80px;
-    animation: wave 5s infinite linear;
-    filter: drop-shadow(0 0 10px #ff4081);
+    width: 70px;
+    animation: wave 4s infinite linear;
 }
 
 @keyframes wave {
     0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(6deg); }
-    75% { transform: rotate(-6deg); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
 }
 
 .cart {
-    background: rgba(194, 24, 91, 0.4);
-    color: white;
+    font-size: 20px;
+    background: #c2185b;
     padding: 10px 20px;
-    border-radius: 50px;
-    font-size: 18px;
-    font-weight: bold;
+    border-radius: 30px;
     box-shadow: 0 0 15px rgba(194, 24, 91, 0.6);
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: 0.3s;
-}
-
-.cart:hover {
-    background: rgba(194, 24, 91, 0.7);
-    transform: scale(1.05);
+    color: white;
 }
 
 /* همبرجر منيو */
 .hamburger {
     display: none;
-    font-size: 32px;
+    font-size: 30px;
     cursor: pointer;
     color: white;
+    z-index: 1002;
 }
 
 .mobile-menu-overlay {
     display: none;
     position: fixed;
-    inset: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
     z-index: 999;
@@ -146,86 +134,51 @@ nav ul {
 }
 
 nav a {
-    color: white;
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
     padding: 12px 25px;
-    border-radius: 30px;
+    border-radius: 25px;
     transition: all 0.3s ease;
 }
 
 nav a:hover, nav a.active {
     background: #c2185b;
-    box-shadow: 0 0 20px #ff4081;
+    box-shadow: 0 0 15px #ff4081;
     transform: translateY(-3px);
 }
 
 /* التيكر */
 .ticker {
     background: linear-gradient(45deg, #c2185b, #ff4081);
-    padding: 15px;
+    padding: 12px;
     overflow: hidden;
     white-space: nowrap;
     position: sticky;
     top: 0;
     z-index: 999;
-    width: 100%;
     box-shadow: 0 5px 20px rgba(194,24,91,0.8);
 }
 
 .ticker-content {
     display: inline-block;
-    animation: scroll-left 100s linear infinite;
-    white-space: nowrap;
-}
-
-.ticker-content > * {
-    display: inline-block;
-    margin-left: 60px;
-    vertical-align: middle;
-    font-weight: bold;
+    animation: scroll 60s linear infinite;
     font-size: 18px;
-    color: white;
+    font-weight: bold;
 }
 
-.ticker-content img {
-    height: 45px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-
-.ticker-content iframe {
-    width: 250px;
-    height: 45px;
-    border: none;
-    border-radius: 10px;
-}
-
-@keyframes scroll-left {
+@keyframes scroll {
     0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
 }
 
 .ticker:hover .ticker-content { animation-play-state: paused; }
 
-/* عنوان الصفحة */
-.page-title {
-    text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(to bottom, #111, #000);
-}
-
-.page-title h1 {
-    font-size: 38px;
-    color: #ff4081;
-    text-shadow: 0 0 15px #c2185b;
-}
-
-/* شبكة المنتجات - متجاوبة تماماً */
+/* كروت المنتجات - Grid متجاوب */
 .product-grid, .featured-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 25px;
     padding: 20px;
     max-width: 1400px;
@@ -259,12 +212,12 @@ nav a:hover, nav a.active {
 
 .product-card h3, .featured-card h3 {
     padding: 15px;
-    font-size: 24px;
+    font-size: 22px;
     color: #ff4081;
 }
 
 .price {
-    font-size: 30px;
+    font-size: 28px;
     color: #00ff88;
     font-weight: bold;
     padding: 10px;
@@ -280,8 +233,8 @@ nav a:hover, nav a.active {
     background: #c2185b;
     color: white;
     border: none;
-    padding: 14px 20px;
-    margin: 10px 5px;
+    padding: 12px 20px;
+    margin: 10px;
     border-radius: 30px;
     cursor: pointer;
     font-size: 18px;
@@ -293,34 +246,19 @@ nav a:hover, nav a.active {
     transform: scale(1.05);
 }
 
-/* عرض اليوم */
-.daily-product-card {
-    max-width: 900px;
-    margin: 40px auto;
-    background: #111;
-    border-radius: 25px;
-    padding: 20px;
-    box-shadow: 0 0 40px rgba(255,23,68,0.3);
-}
-
-.daily-product-card img {
-    height: 400px;
-    object-fit: cover;
-}
-
-/* واتساب فلوت */
+/* WhatsApp Float */
 .whatsapp-float {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background: #25D366;
     color: white;
-    padding: 15px 25px;
+    padding: 15px 20px;
     border-radius: 50px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.6);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     font-size: 18px;
     z-index: 1000;
     animation: pulse 2s infinite;
@@ -334,69 +272,27 @@ nav a:hover, nav a.active {
     50% { transform: scale(1.1); }
 }
 
-/* السوشيال */
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 40px 0;
-}
-
-.social-icon img {
-    width: 40px;
-    transition: 0.3s;
-}
-
-.social-icon:hover img {
-    transform: scale(1.2);
-}
-
-/* Responsive - تحسينات مخصصة للموبايل */
+/* تحسينات للموبايل */
 @media (max-width: 768px) {
     .hamburger { display: block; }
-    nav { display: none; } /* نستخدم الهمبرجر بدلاً من الناف الأفقي */
-
-    .logo { font-size: 32px; }
-    .algeria-flag { width: 60px; }
-
-    .page-title h1 { font-size: 30px; padding: 30px 15px; }
-
-    .product-grid, .featured-grid {
-        grid-template-columns: 1fr;
-        padding: 15px;
-        gap: 20px;
-    }
-
-    .product-card img, .featured-card img { height: 250px; }
-    .product-card h3, .featured-card h3 { font-size: 22px; }
-    .price { font-size: 28px; }
-
-    .daily-product-card img { height: 300px; }
-
-    .add-to-cart, .share-btn {
-        width: 90%;
-        margin: 10px auto;
-        display: block;
-    }
-
-    .ticker-content > * {
-        margin-left: 30px;
-        font-size: 16px;
-    }
-    .ticker-content img { height: 35px; }
-    .ticker-content iframe { width: 180px; height: 35px; }
-
-    header { padding: 12px 15px; }
-    .cart { padding: 8px 15px; font-size: 16px; }
+    nav { display: none; } /* نخفي النافبار العادي ونعتمد على الهمبرجر */
+    .logo { font-size: 28px; }
+    .product-card img, .featured-card img { height: 220px; }
+    .ticker-content { font-size: 16px; }
+    .price { font-size: 24px; }
+    h1, h2 { font-size: 28px !important; }
 }
 
 /* تابلت */
 @media (min-width: 769px) and (max-width: 1024px) {
-    .product-grid, .featured-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-grid, .featured-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 /* كمبيوتر كبير */
 @media (min-width: 1200px) {
-    .product-grid, .featured-grid { grid-template-columns: repeat(4, 1fr); }
-    .logo { font-size: 48px; }
+    .product-grid, .featured-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
